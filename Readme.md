@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
 * Студент: [Денис Панкрашин](https://up.htmlacademy.ru/react/15/user/1410409).
-* Наставник: `Неизвестно`.
+* Наставник: [Arthur Litovko](https://htmlacademy.ru/profile/id6927).
 
 ---
 
