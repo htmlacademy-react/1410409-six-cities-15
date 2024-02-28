@@ -18,6 +18,7 @@ const OFFER_TYPES = [
 ] as const;
 
 const AppRoute = {
+  Main: '/',
   Login: '/login',
   Favorites: '/favorites',
   Offer: '/offer/:id',
