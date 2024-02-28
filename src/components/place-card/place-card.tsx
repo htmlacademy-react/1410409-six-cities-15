@@ -1,5 +1,5 @@
 import {classNames} from '../../utils/class-names/class-names.ts';
-import {type Offer} from '../../types/offer.ts';
+import type {Offer} from '../../types/offer.ts';
 
 interface PlaceCardProps {
   offer: Offer;

@@ -17,4 +17,16 @@ const OFFER_TYPES = [
   'room',
 ] as const;
 
-export {CARDS_COUNT, OFFERS_COUNT, CITY_NAMES, OFFER_TYPES};
+const AppRoute = {
+  Login: '/login',
+  Favorites: '/favorites',
+  Offer: '/offer/:id',
+} as const;
+
+const enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
+
+export {CARDS_COUNT, OFFERS_COUNT, CITY_NAMES, OFFER_TYPES, AppRoute, AuthorizationStatus};
