@@ -27,4 +27,4 @@ interface Location {
   zoom: number;
 }
 
-export {type Offer};
+export type {Offer, City, Location};
