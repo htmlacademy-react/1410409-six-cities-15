@@ -16,7 +16,7 @@ function NotFound() {
       </header>
       <main className={styles.container}>
         <h1>Ошибка 404. <br/>Страница не найдена 😕</h1>
-        <Link to="/" className=""> {'<- Вернуться на главную страницу'}</Link>
+        <Link to="/" className="locations__item-link"> {'<- Вернуться на главную страницу'}</Link>
       </main>
     </div>
   );
