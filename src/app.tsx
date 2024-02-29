@@ -7,6 +7,7 @@ import Favorites from './pages/favorites/favorites.tsx';
 import Offer from './pages/offer/offer.tsx';
 import PrivateRoute from './components/private-route/private-route.tsx';
 import Login from './pages/login/login.tsx';
+import PublicRoute from './components/public-route/public-route.tsx';
 
 type AppProps = MainProps
 
@@ -20,12 +21,20 @@ function App({offersCount}: AppProps) {
         />
         <Route
           path={AppRoute.Login}
-          element={<Login />}
+          element={
+            <PublicRoute
+              authorizationStatus={AuthorizationStatus.NoAuth}
+            >
+              <Login />
+            </PublicRoute>
+          }
         />
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+            <PrivateRoute
+              authorizationStatus={AuthorizationStatus.NoAuth}
+            >
               <Favorites />
             </PrivateRoute>
           }

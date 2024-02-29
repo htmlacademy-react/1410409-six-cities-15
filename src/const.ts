@@ -17,12 +17,12 @@ const OFFER_TYPES = [
   'room',
 ] as const;
 
-const AppRoute = {
-  Main: '/',
-  Login: '/login',
-  Favorites: '/favorites',
-  Offer: '/offer',
-} as const;
+const enum AppRoute {
+  Main = '/',
+  Login = '/login',
+  Favorites = '/favorites',
+  Offer = '/offer',
+}
 
 const enum AuthorizationStatus {
   Auth = 'AUTH',
