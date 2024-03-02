@@ -8,7 +8,7 @@ function PublicRoute({authorizationStatus, children}: PrivateRouteProps): React.
   return (
     authorizationStatus === AuthorizationStatus.NoAuth
       ? children
-      : <Navigate to={AppRoute.Main} />
+      : <Navigate to={AppRoute.Root} />
   );
 }
 

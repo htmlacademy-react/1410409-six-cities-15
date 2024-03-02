@@ -13,7 +13,7 @@ function Logo() {
         {logo}
       </span>
     ) : (
-      <Link to={AppRoute.Main} className="header__logo-link">
+      <Link to={AppRoute.Root} className="header__logo-link">
         {logo}
       </Link>
     )

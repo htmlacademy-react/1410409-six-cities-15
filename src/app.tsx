@@ -1,8 +1,8 @@
 import type {MainProps} from './pages/main/main.tsx';
 import Main from './pages/main/main.tsx';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
 import NotFound from './pages/not-found/not-found.tsx';
-import {AppRoute, AuthorizationStatus} from './const.ts';
+import {AppRoute, AuthorizationStatus, CITIES, DEFAULT_CITY} from './const.ts';
 import Favorites from './pages/favorites/favorites.tsx';
 import Offer from './pages/offer/offer.tsx';
 import PrivateRoute from './components/private-route/private-route.tsx';
@@ -12,13 +12,22 @@ import PublicRoute from './components/public-route/public-route.tsx';
 type AppProps = MainProps
 
 function App({offersCount}: AppProps) {
+
   return (
     <BrowserRouter>
       <Routes>
         <Route
-          path={AppRoute.Main}
-          element={<Main offersCount={offersCount} />}
+          path={AppRoute.Root}
+          element={<Navigate to={DEFAULT_CITY} />}
         />
+        {CITIES.map((city) => (
+          <Route
+            key={city.slug}
+            path={AppRoute.Root + city.slug}
+            element={<Main offersCount={offersCount} />}
+          />
+        )
+        )}
         <Route
           path={AppRoute.Login}
           element={

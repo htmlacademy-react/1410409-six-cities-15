@@ -1,5 +1,5 @@
 import PlaceCard from '../../components/place-card/place-card.tsx';
-import {CARDS_COUNT, CITY_NAMES} from '../../const.ts';
+import {CARDS_COUNT} from '../../const.ts';
 import Header from '../../components/header/header.tsx';
 import LocationTab from '../../components/location-tab/location-tab.tsx';
 import {getOffers} from '../../mock/offers.ts';
@@ -13,6 +13,7 @@ export type MainProps = {
 
 function Main({offersCount, title = 'Main'}: MainProps) {
   useDocumentTitle(title);
+
   const mockOffers = getOffers(CARDS_COUNT);
 
   return (
@@ -23,11 +24,7 @@ function Main({offersCount, title = 'Main'}: MainProps) {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              {CITY_NAMES.map((cityName) => (
-                <li key={cityName} className="locations__item">
-                  <LocationTab cityName={cityName} />
-                </li>
-              ))}
+              <LocationTab />
             </ul>
           </section>
         </div>

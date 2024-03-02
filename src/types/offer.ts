@@ -1,7 +1,7 @@
-import {CITY_NAMES, OFFER_TYPES} from '../const';
+import {CITIES, OFFER_TYPES} from '../const';
 
 type OfferType = typeof OFFER_TYPES[number];
-type CityName = typeof CITY_NAMES[number];
+type CityName = typeof CITIES[number]['name'];
 
 interface Offer {
   id: string;
@@ -27,4 +27,4 @@ interface Location {
   zoom: number;
 }
 
-export type {Offer, City, Location};
+export type {Offer, City, Location, CityName};
