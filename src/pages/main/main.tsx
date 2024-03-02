@@ -4,12 +4,15 @@ import Header from '../../components/header/header.tsx';
 import LocationTab from '../../components/location-tab/location-tab.tsx';
 import {getOffers} from '../../mock/offers.ts';
 import {Offer} from '../../types/offer.ts';
+import {useDocumentTitle} from '../../hooks/document-title.ts';
 
 export type MainProps = {
   offersCount: number;
+  title?: string;
 }
 
-function Main({offersCount}: MainProps) {
+function Main({offersCount, title = 'Main'}: MainProps) {
+  useDocumentTitle(title);
   const mockOffers = getOffers(CARDS_COUNT);
 
   return (

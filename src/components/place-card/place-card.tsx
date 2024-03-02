@@ -1,5 +1,7 @@
 import {classNames} from '../../utils/class-names/class-names.ts';
 import type {Offer} from '../../types/offer.ts';
+import {AppRoute} from '../../const.ts';
+import {Link} from 'react-router-dom';
 
 interface PlaceCardProps {
   offer: Offer;
@@ -7,6 +9,7 @@ interface PlaceCardProps {
 
 function PlaceCard ({offer}: PlaceCardProps) {
   const {
+    id,
     isPremium,
     previewImage,
     price,
@@ -15,6 +18,7 @@ function PlaceCard ({offer}: PlaceCardProps) {
     title,
     type,
   } = offer;
+  const link = `${AppRoute.Offer}/:${id}`;
   return (
     <article className="cities__card place-card">
       {isPremium && (
@@ -23,7 +27,7 @@ function PlaceCard ({offer}: PlaceCardProps) {
         </div>
       )}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to={link}>
           <img
             className="place-card__image"
             src={previewImage}
@@ -31,7 +35,7 @@ function PlaceCard ({offer}: PlaceCardProps) {
             height="200"
             alt="Place image"
           />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -53,7 +57,7 @@ function PlaceCard ({offer}: PlaceCardProps) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={link}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

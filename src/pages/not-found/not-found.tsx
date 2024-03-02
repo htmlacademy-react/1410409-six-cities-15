@@ -1,8 +1,15 @@
 import {Link} from 'react-router-dom';
 import styles from './not-found.module.css';
 import Logo from '../../components/logo/logo.tsx';
+import {useDocumentTitle} from '../../hooks/document-title.ts';
 
-function NotFound() {
+interface NotFoundProps {
+  title?: string;
+}
+
+function NotFound({title = '404'}: NotFoundProps) {
+  useDocumentTitle(title);
+
   return (
     <div className="page page--gray">
       <header className="header">

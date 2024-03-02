@@ -23,7 +23,7 @@ function App({offersCount}: AppProps) {
           path={AppRoute.Login}
           element={
             <PublicRoute
-              authorizationStatus={AuthorizationStatus.NoAuth}
+              authorizationStatus={AuthorizationStatus.Auth}
             >
               <Login />
             </PublicRoute>
@@ -33,7 +33,7 @@ function App({offersCount}: AppProps) {
           path={AppRoute.Favorites}
           element={
             <PrivateRoute
-              authorizationStatus={AuthorizationStatus.NoAuth}
+              authorizationStatus={AuthorizationStatus.Auth}
             >
               <Favorites />
             </PrivateRoute>

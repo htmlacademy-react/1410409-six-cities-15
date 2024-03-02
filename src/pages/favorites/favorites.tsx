@@ -1,6 +1,12 @@
 import Header from '../../components/header/header.tsx';
+import {useDocumentTitle} from '../../hooks/document-title.ts';
 
-function Favorites() {
+interface FavoritesProps {
+  title?: string;
+}
+
+function Favorites({title = 'Favorites'}: FavoritesProps) {
+  useDocumentTitle(title);
   return (
     <div className="page">
       <Header />

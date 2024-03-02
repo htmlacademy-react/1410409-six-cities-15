@@ -1,6 +1,13 @@
 import Logo from '../../components/logo/logo.tsx';
+import {useDocumentTitle} from '../../hooks/document-title.ts';
 
-function Login() {
+interface LoginProps {
+  title?: string;
+}
+
+function Login({title = 'Login'}: LoginProps) {
+  useDocumentTitle(title);
+
   return (
     <div className="page page--gray page--login">
       <header className="header">

@@ -1,6 +1,12 @@
 import Header from '../../components/header/header.tsx';
+import {useDocumentTitle} from '../../hooks/document-title.ts';
 
-function Offer() {
+interface OfferProps {
+  title?: string;
+}
+
+function Offer({title = 'Offer'}: OfferProps) {
+  useDocumentTitle(title);
   return (
     <div className="page">
       <Header />
