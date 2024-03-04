@@ -12,9 +12,10 @@ import {OfferShortInfo} from './types/offer.ts';
 interface AppProps {
   offersCount: number;
   offers: OfferShortInfo[];
+  offersFavorites: OfferShortInfo[];
 }
 
-function App({offersCount, offers}: AppProps) {
+function App({offersCount, offers, offersFavorites}: AppProps) {
 
   return (
     <BrowserRouter>
@@ -47,7 +48,7 @@ function App({offersCount, offers}: AppProps) {
             <PrivateRoute
               authorizationStatus={AuthorizationStatus.Auth}
             >
-              <Favorites />
+              <Favorites offersFavorites={offersFavorites} />
             </PrivateRoute>
           }
         />

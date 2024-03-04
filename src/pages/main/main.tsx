@@ -1,4 +1,4 @@
-import PlaceCard from '../../components/place-card/place-card.tsx';
+import OfferCard from '../../components/offer-card/offer-card.tsx';
 import Header from '../../components/header/header.tsx';
 import LocationTab from '../../components/location-tab/location-tab.tsx';
 import {OfferShortInfo} from '../../types/offer.ts';
@@ -46,7 +46,7 @@ function Main({offers, offersCount, title = 'Main'}: MainProps) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {offers.map((offer: OfferShortInfo) => <PlaceCard key={offer.id} offer={offer}/>)}
+                {offers.map((offer: OfferShortInfo) => <OfferCard componentType={'cities'} key={offer.id} offer={offer}/>)}
               </div>
             </section>
             <div className="cities__right-section">

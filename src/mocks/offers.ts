@@ -294,6 +294,7 @@ const OFFERS_FULL_INFO: OfferFullInfo[] = [
 ];
 
 const getOffersShortInfo = () => OFFERS_SHORT_INFO;
+const getFavoriteOffers = () => OFFERS_SHORT_INFO.filter((offer) => offer.isFavorite);
 const getOfferFullInfo = (id: string) => OFFERS_FULL_INFO.find((offer) => offer.id === id);
 
-export {getOffersShortInfo, getOfferFullInfo};
+export {getOffersShortInfo, getFavoriteOffers, getOfferFullInfo};

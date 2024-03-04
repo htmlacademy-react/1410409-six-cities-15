@@ -6,9 +6,10 @@ import Rating from '../rating/rating.tsx';
 
 interface PlaceCardProps {
   offer: OfferShortInfo;
+  componentType: 'cities' | 'favorites';
 }
 
-function PlaceCard ({offer}: PlaceCardProps) {
+function OfferCard ({offer, componentType}: PlaceCardProps) {
   const {
     id,
     isPremium,
@@ -20,22 +21,31 @@ function PlaceCard ({offer}: PlaceCardProps) {
     type,
   } = offer;
   const link = `${AppRoute.Offer}/${id}`;
+  const sizes = {
+    'cities': {
+      width: '260',
+      height: '200',
+    },
+    'favorites': {
+      width: '150',
+      height: '110',
+    },
+  };
 
   return (
-    <article className="cities__card place-card">
+    <article className={`${componentType}__card place-card`}>
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${componentType}__image-wrapper place-card__image-wrapper`}>
         <Link to={link}>
           <img
             className="place-card__image"
             src={previewImage}
-            width="260"
-            height="200"
             alt="Place image"
+            {...sizes[componentType]}
           />
         </Link>
       </div>
@@ -57,4 +67,4 @@ function PlaceCard ({offer}: PlaceCardProps) {
   );
 }
 
-export default PlaceCard;
+export default OfferCard;
