@@ -1,7 +1,7 @@
 import Main from './pages/main/main.tsx';
 import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
 import NotFound from './pages/not-found/not-found.tsx';
-import {AppRoute, AuthorizationStatus, CITIES, DEFAULT_CITY} from './const.ts';
+import {AppRoute, AuthorizationStatus, CITIES, DEFAULT_CITY_SLUG} from './const.ts';
 import Favorites from './pages/favorites/favorites.tsx';
 import Offer from './pages/offer/offer.tsx';
 import PrivateRoute from './components/private-route/private-route.tsx';
@@ -22,7 +22,7 @@ function App({offersCount, offers, offersFavorites}: AppProps) {
       <Routes>
         <Route
           path={AppRoute.Root}
-          element={<Navigate to={DEFAULT_CITY} />}
+          element={<Navigate to={DEFAULT_CITY_SLUG} />}
         />
         {CITIES.map((city) => (
           <Route

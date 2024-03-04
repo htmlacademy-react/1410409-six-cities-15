@@ -29,7 +29,7 @@ const CITY_NAMES = [
   'Dusseldorf',
 ] as const;
 
-const DEFAULT_CITY = CITY_NAMES[0];
+const DEFAULT_CITY_SLUG = CITIES[0].slug;
 
 const OFFER_TYPES = [
   'hotel',
@@ -62,7 +62,7 @@ export {
   AppRoute,
   AuthorizationStatus,
   CITIES,
-  DEFAULT_CITY,
+  DEFAULT_CITY_SLUG,
   DATE_FORMAT,
   DATE_FORMAT_ATTRIBUTE,
   MIN_STARS_COMMENT,
