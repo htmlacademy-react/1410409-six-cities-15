@@ -1,20 +1,17 @@
 import PlaceCard from '../../components/place-card/place-card.tsx';
-import {CARDS_COUNT} from '../../const.ts';
 import Header from '../../components/header/header.tsx';
 import LocationTab from '../../components/location-tab/location-tab.tsx';
-import {getOffers} from '../../mock/offers.ts';
-import {Offer} from '../../types/offer.ts';
+import {OfferShortInfo} from '../../types/offer.ts';
 import {useDocumentTitle} from '../../hooks/document-title.ts';
 
 export type MainProps = {
+  offers: OfferShortInfo[];
   offersCount: number;
   title?: string;
 }
 
-function Main({offersCount, title = 'Main'}: MainProps) {
+function Main({offers, offersCount, title = 'Main'}: MainProps) {
   useDocumentTitle(title);
-
-  const mockOffers = getOffers(CARDS_COUNT);
 
   return (
     <div className="page page--gray page--main">
@@ -49,7 +46,7 @@ function Main({offersCount, title = 'Main'}: MainProps) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {mockOffers.map((offer: Offer) => <PlaceCard key={offer.id} offer={offer}/>)}
+                {offers.map((offer: OfferShortInfo) => <PlaceCard key={offer.id} offer={offer}/>)}
               </div>
             </section>
             <div className="cities__right-section">

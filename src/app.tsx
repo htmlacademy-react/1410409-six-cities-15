@@ -1,4 +1,3 @@
-import type {MainProps} from './pages/main/main.tsx';
 import Main from './pages/main/main.tsx';
 import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
 import NotFound from './pages/not-found/not-found.tsx';
@@ -8,10 +7,14 @@ import Offer from './pages/offer/offer.tsx';
 import PrivateRoute from './components/private-route/private-route.tsx';
 import Login from './pages/login/login.tsx';
 import PublicRoute from './components/public-route/public-route.tsx';
+import {OfferShortInfo} from './types/offer.ts';
 
-type AppProps = MainProps
+interface AppProps {
+  offersCount: number;
+  offers: OfferShortInfo[];
+}
 
-function App({offersCount}: AppProps) {
+function App({offersCount, offers}: AppProps) {
 
   return (
     <BrowserRouter>
@@ -24,7 +27,7 @@ function App({offersCount}: AppProps) {
           <Route
             key={city.slug}
             path={AppRoute.Root + city.slug}
-            element={<Main offersCount={offersCount} />}
+            element={<Main offers={offers} offersCount={offersCount} />}
           />
         )
         )}
@@ -49,8 +52,8 @@ function App({offersCount}: AppProps) {
           }
         />
         <Route
-          path={`${AppRoute.Offer}/:id`}
-          element={<Offer />}
+          path={`${AppRoute.Offer}/:offerId`}
+          element={<Offer userAuth={AuthorizationStatus.Auth} />}
         />
         <Route
           path="/*"

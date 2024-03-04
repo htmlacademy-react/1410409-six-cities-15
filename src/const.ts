@@ -1,4 +1,14 @@
-const CARDS_COUNT = 5;
+const RATING_STARS = {
+  'perfect': 5,
+  'good': 4,
+  'not bad': 3,
+  'badly': 2,
+  'terribly': 1
+} as const;
+
+const MIN_LENGTH_COMMENT = 50;
+const MIN_STARS_COMMENT = 1;
+
 const OFFERS_COUNT = 153;
 
 const CITIES = [
@@ -41,4 +51,20 @@ const enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export {CARDS_COUNT, OFFERS_COUNT, CITY_NAMES, OFFER_TYPES, AppRoute, AuthorizationStatus, CITIES, DEFAULT_CITY};
+const DATE_FORMAT = 'MMMM YYYY';
+const DATE_FORMAT_ATTRIBUTE = 'YYYY-MM-DD';
+
+export {
+  RATING_STARS,
+  OFFERS_COUNT,
+  CITY_NAMES,
+  OFFER_TYPES,
+  AppRoute,
+  AuthorizationStatus,
+  CITIES,
+  DEFAULT_CITY,
+  DATE_FORMAT,
+  DATE_FORMAT_ATTRIBUTE,
+  MIN_STARS_COMMENT,
+  MIN_LENGTH_COMMENT
+};
