@@ -7,9 +7,10 @@ import Rating from '../rating/rating.tsx';
 interface PlaceCardProps {
   offer: OfferShortInfo;
   componentType: 'cities' | 'favorites';
+  hoverHandler?: (offer?: OfferShortInfo) => void;
 }
 
-function OfferCard ({offer, componentType}: PlaceCardProps) {
+function OfferCard ({offer, componentType, hoverHandler}: PlaceCardProps) {
   const {
     id,
     isPremium,
@@ -32,8 +33,15 @@ function OfferCard ({offer, componentType}: PlaceCardProps) {
     },
   };
 
+  const mouseOnHadnler = () => hoverHandler && hoverHandler(offer);
+  const mouseOfHadnler = () => hoverHandler && hoverHandler();
+
   return (
-    <article className={`${componentType}__card place-card`}>
+    <article
+      className={`${componentType}__card place-card`}
+      onMouseEnter={mouseOnHadnler}
+      onMouseLeave={mouseOfHadnler}
+    >
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>

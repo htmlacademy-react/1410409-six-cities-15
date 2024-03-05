@@ -3,6 +3,8 @@ import Header from '../../components/header/header.tsx';
 import LocationTab from '../../components/location-tab/location-tab.tsx';
 import {OfferShortInfo} from '../../types/offer.ts';
 import {useDocumentTitle} from '../../hooks/document-title.ts';
+import {useState} from 'react';
+import {Nullable} from 'vitest';
 
 export type MainProps = {
   offers: OfferShortInfo[];
@@ -12,6 +14,11 @@ export type MainProps = {
 
 function Main({offers, offersCount, title = 'Main'}: MainProps) {
   useDocumentTitle(title);
+  const [activeOffer, setActiveOffer] = useState<Nullable<OfferShortInfo>>(null);
+
+  const onHoverOffer = (offer?: OfferShortInfo) => {
+    setActiveOffer(offer || null);
+  };
 
   return (
     <div className="page page--gray page--main">
@@ -28,6 +35,9 @@ function Main({offers, offersCount, title = 'Main'}: MainProps) {
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
+
+              <span>Now active offer id: {activeOffer?.id}</span>
+
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offersCount} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
@@ -46,7 +56,7 @@ function Main({offers, offersCount, title = 'Main'}: MainProps) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {offers.map((offer: OfferShortInfo) => <OfferCard componentType={'cities'} key={offer.id} offer={offer}/>)}
+                {offers.map((offer: OfferShortInfo) => <OfferCard hoverHandler={onHoverOffer} componentType={'cities'} key={offer.id} offer={offer}/>)}
               </div>
             </section>
             <div className="cities__right-section">
