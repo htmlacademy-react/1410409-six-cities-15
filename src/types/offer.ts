@@ -1,9 +1,9 @@
-import {CITY_NAMES, OFFER_TYPES} from '../const';
+import {CITIES, OFFER_TYPES} from '../const';
 
 type OfferType = typeof OFFER_TYPES[number];
-type CityName = typeof CITY_NAMES[number];
+type CityName = typeof CITIES[number]['name'];
 
-interface Offer {
+interface OfferShortInfo {
   id: string;
   title: string;
   type: OfferType;
@@ -27,4 +27,19 @@ interface Location {
   zoom: number;
 }
 
-export type {Offer, City, Location};
+interface OfferFullInfo extends Omit<OfferShortInfo, 'previewImage'> {
+  'description': string;
+  'images': string[];
+  'goods': string[];
+  'host': Host;
+  'bedrooms': number;
+  'maxAdults': number;
+}
+
+interface Host {
+  'isPro': boolean;
+  'name': string;
+  'avatarUrl': string;
+}
+
+export type {OfferShortInfo, OfferFullInfo, City, Location, CityName, Host};

@@ -1,15 +1,23 @@
 import {classNames} from '../../utils/class-names/class-names.ts';
+import {NavLink} from 'react-router-dom';
+import {AppRoute, CITIES} from '../../const.ts';
 
-type LocationTabProps = {
-  cityName: string;
-  isActive?: boolean;
+interface LocationTabProps {
+  cities?: typeof CITIES;
 }
 
-function LocationTab({cityName, isActive}: LocationTabProps) {
+function LocationTab({cities = CITIES}: LocationTabProps) {
   return (
-    <a className={classNames('locations__item-link tabs__item', isActive && 'tabs__item--active')} href="#">
-      <span>{cityName}</span>
-    </a>
+    cities.map((city) => (
+      <NavLink
+        key={city.slug}
+        to={AppRoute.Root + city.slug}
+        className={({isActive}) =>
+          classNames('locations__item-link tabs__item', isActive && 'tabs__item--active')}
+      >
+        <span>{city.name}</span>
+      </NavLink>
+    ))
   );
 }
 

@@ -1,16 +1,24 @@
-import PlaceCard from '../../components/place-card/place-card.tsx';
-import {CARDS_COUNT, CITY_NAMES} from '../../const.ts';
+import OfferCard from '../../components/offer-card/offer-card.tsx';
 import Header from '../../components/header/header.tsx';
 import LocationTab from '../../components/location-tab/location-tab.tsx';
-import {getOffers} from '../../mock/offers.ts';
-import {Offer} from '../../types/offer.ts';
+import {OfferShortInfo} from '../../types/offer.ts';
+import {useDocumentTitle} from '../../hooks/document-title.ts';
+import {useState} from 'react';
+import {Nullable} from 'vitest';
 
 export type MainProps = {
+  offers: OfferShortInfo[];
   offersCount: number;
+  title?: string;
 }
 
-function Main({offersCount}: MainProps) {
-  const mockOffers = getOffers(CARDS_COUNT);
+function Main({offers, offersCount, title = 'Main'}: MainProps) {
+  useDocumentTitle(title);
+  const [activeOffer, setActiveOffer] = useState<Nullable<OfferShortInfo>>(null);
+
+  const onHoverOffer = (offer?: OfferShortInfo) => {
+    setActiveOffer(offer || null);
+  };
 
   return (
     <div className="page page--gray page--main">
@@ -20,17 +28,16 @@ function Main({offersCount}: MainProps) {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              {CITY_NAMES.map((cityName) => (
-                <li key={cityName} className="locations__item">
-                  <LocationTab cityName={cityName} />
-                </li>
-              ))}
+              <LocationTab />
             </ul>
           </section>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
+
+              <span>Now active offer id: {activeOffer?.id}</span>
+
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offersCount} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
@@ -49,7 +56,7 @@ function Main({offersCount}: MainProps) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {mockOffers.map((offer: Offer) => <PlaceCard key={offer.id} offer={offer}/>)}
+                {offers.map((offer: OfferShortInfo) => <OfferCard hoverHandler={onHoverOffer} componentType={'cities'} key={offer.id} offer={offer}/>)}
               </div>
             </section>
             <div className="cities__right-section">
