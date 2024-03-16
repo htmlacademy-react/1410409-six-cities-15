@@ -16,10 +16,6 @@ function Main({offers, offersCount, title = 'Main'}: MainProps) {
   useDocumentTitle(title);
   const [activeOffer, setActiveOffer] = useState<Nullable<OfferShortInfo>>(null);
 
-  const onHoverOffer = (offer?: OfferShortInfo) => {
-    setActiveOffer(offer || null);
-  };
-
   return (
     <div className="page page--gray page--main">
       <Header />
@@ -56,7 +52,7 @@ function Main({offers, offersCount, title = 'Main'}: MainProps) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {offers.map((offer: OfferShortInfo) => <OfferCard hoverHandler={onHoverOffer} componentType={'cities'} key={offer.id} offer={offer}/>)}
+                {offers.map((offer: OfferShortInfo) => <OfferCard hoverHandler={() => setActiveOffer(offer || null)} componentType={'cities'} key={offer.id} offer={offer}/>)}
               </div>
             </section>
             <div className="cities__right-section">
