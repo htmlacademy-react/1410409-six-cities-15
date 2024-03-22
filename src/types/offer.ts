@@ -8,7 +8,7 @@ interface OfferShortInfo {
   title: string;
   type: OfferType;
   price: number;
-  previewImage: string;
+  previewImage?: string;
   city: City;
   location: Location;
   isFavorite: boolean;

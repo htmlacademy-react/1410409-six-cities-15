@@ -11,6 +11,7 @@ type MapProps = {
   city: typeof CITIES[number];
   offers: OfferShortInfo[];
   activeOffer: Nullable<OfferShortInfo>;
+  container: string;
 };
 
 const defaultCustomIcon = new Icon({
@@ -25,7 +26,7 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-function Map({city, offers, activeOffer}: MapProps) {
+function Map({container, city, offers, activeOffer}: MapProps) {
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
@@ -56,7 +57,7 @@ function Map({city, offers, activeOffer}: MapProps) {
     }
   }, [city, map, offers, activeOffer]);
 
-  return <section ref={mapRef} className="cities__map map" />;
+  return <section ref={mapRef} className={`${container}__map map`} />;
 }
 
 export default Map;

@@ -6,7 +6,7 @@ import Rating from '../rating/rating.tsx';
 
 interface PlaceCardProps {
   offer: OfferShortInfo;
-  componentType: 'cities' | 'favorites';
+  componentType: 'cities' | 'favorites' | 'near-places';
   hoverHandler?: (offer?: OfferShortInfo) => void;
 }
 
@@ -24,6 +24,10 @@ function OfferCard ({offer, componentType, hoverHandler}: PlaceCardProps) {
   const link = `${AppRoute.Offer}/${id}`;
   const sizes = {
     'cities': {
+      width: '260',
+      height: '200',
+    },
+    'near-places': {
       width: '260',
       height: '200',
     },

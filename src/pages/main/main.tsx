@@ -67,7 +67,7 @@ function Main({offers, offersCount, title = 'Main'}: MainProps) {
             </section>
             <div className="cities__right-section">
               {
-                currentCity && <Map city={currentCity} offers={offers} activeOffer={activeOffer} />
+                currentCity && <Map container="cities" city={currentCity} offers={offers} activeOffer={activeOffer} />
               }
             </div>
           </div>
