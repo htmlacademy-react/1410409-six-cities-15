@@ -10,8 +10,8 @@ const OFFERS_SHORT_INFO: OfferShortInfo[] = [
     'city': {
       'name': 'Amsterdam',
       'location': {
-        'latitude': 52.380955394,
-        'longitude': 4.853096664,
+        'latitude': 52.37454,
+        'longitude': 4.897976,
         'zoom': 13
       }
     },
@@ -33,8 +33,8 @@ const OFFERS_SHORT_INFO: OfferShortInfo[] = [
     'city': {
       'name': 'Amsterdam',
       'location': {
-        'latitude': 52.380955394,
-        'longitude': 4.853096664,
+        'latitude': 52.37454,
+        'longitude': 4.897976,
         'zoom': 13
       }
     },
@@ -56,8 +56,8 @@ const OFFERS_SHORT_INFO: OfferShortInfo[] = [
     'city': {
       'name': 'Amsterdam',
       'location': {
-        'latitude': 52.3909553943508,
-        'longitude': 4.929309666406198,
+        'latitude': 52.37454,
+        'longitude': 4.897976,
         'zoom': 13
       }
     },
@@ -79,8 +79,8 @@ const OFFERS_SHORT_INFO: OfferShortInfo[] = [
     'city': {
       'name': 'Amsterdam',
       'location': {
-        'latitude': 52.380955394,
-        'longitude': 4.853096664,
+        'latitude': 52.37454,
+        'longitude': 4.897976,
         'zoom': 13
       }
     },
@@ -113,8 +113,8 @@ const OFFERS_FULL_INFO: OfferFullInfo[] = [
     'city': {
       'name': 'Amsterdam',
       'location': {
-        'latitude': 52.380955394,
-        'longitude': 4.853096664,
+        'latitude': 52.37454,
+        'longitude': 4.897976,
         'zoom': 13
       }
     },
@@ -158,8 +158,8 @@ const OFFERS_FULL_INFO: OfferFullInfo[] = [
     'city': {
       'name': 'Amsterdam',
       'location': {
-        'latitude': 52.380955394,
-        'longitude': 4.853096664,
+        'latitude': 52.37454,
+        'longitude': 4.897976,
         'zoom': 13
       }
     },
@@ -207,8 +207,8 @@ const OFFERS_FULL_INFO: OfferFullInfo[] = [
     'city': {
       'name': 'Amsterdam',
       'location': {
-        'latitude': 52.380955394,
-        'longitude': 4.853096664,
+        'latitude': 52.37454,
+        'longitude': 4.897976,
         'zoom': 13
       }
     },
@@ -260,8 +260,8 @@ const OFFERS_FULL_INFO: OfferFullInfo[] = [
     'city': {
       'name': 'Amsterdam',
       'location': {
-        'latitude': 52.380955394,
-        'longitude': 4.853096664,
+        'latitude': 52.37454,
+        'longitude': 4.897976,
         'zoom': 13
       }
     },
