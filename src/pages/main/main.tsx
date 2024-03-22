@@ -3,8 +3,11 @@ import Header from '../../components/header/header.tsx';
 import LocationTab from '../../components/location-tab/location-tab.tsx';
 import {OfferShortInfo} from '../../types/offer.ts';
 import {useDocumentTitle} from '../../hooks/document-title.ts';
-import {useState} from 'react';
 import {Nullable} from 'vitest';
+import {CITIES} from '../../const.ts';
+import {useEffect, useState} from 'react';
+import Map from '../../components/map/map.tsx';
+import {useLocation} from 'react-router-dom';
 
 export type MainProps = {
   offers: OfferShortInfo[];
@@ -15,10 +18,13 @@ export type MainProps = {
 function Main({offers, offersCount, title = 'Main'}: MainProps) {
   useDocumentTitle(title);
   const [activeOffer, setActiveOffer] = useState<Nullable<OfferShortInfo>>(null);
+  const location = useLocation();
+  const [citySlug, setCitySlug] = useState(location.pathname.split('/').pop());
+  useEffect(() => {
+    setCitySlug(location.pathname.split('/').pop());
+  }, [location]);
 
-  const onHoverOffer = (offer?: OfferShortInfo) => {
-    setActiveOffer(offer || null);
-  };
+  const currentCity = CITIES.find((city) => city.slug === citySlug);
 
   return (
     <div className="page page--gray page--main">
@@ -56,11 +62,13 @@ function Main({offers, offersCount, title = 'Main'}: MainProps) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {offers.map((offer: OfferShortInfo) => <OfferCard hoverHandler={onHoverOffer} componentType={'cities'} key={offer.id} offer={offer}/>)}
+                {offers.map((offer: OfferShortInfo) => <OfferCard hoverHandler={() => setActiveOffer(offer || null)} componentType={'cities'} key={offer.id} offer={offer}/>)}
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              {
+                currentCity && <Map city={currentCity} offers={offers} activeOffer={activeOffer} />
+              }
             </div>
           </div>
         </div>

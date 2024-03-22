@@ -54,6 +54,13 @@ const enum AuthorizationStatus {
 const DATE_FORMAT = 'MMMM YYYY';
 const DATE_FORMAT_ATTRIBUTE = 'YYYY-MM-DD';
 
+const URL_MARKER_DEFAULT =
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
+
+const URL_MARKER_CURRENT =
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
+
+
 export {
   RATING_STARS,
   OFFERS_COUNT,
@@ -66,5 +73,7 @@ export {
   DATE_FORMAT,
   DATE_FORMAT_ATTRIBUTE,
   MIN_STARS_COMMENT,
-  MIN_LENGTH_COMMENT
+  MIN_LENGTH_COMMENT,
+  URL_MARKER_DEFAULT,
+  URL_MARKER_CURRENT,
 };
