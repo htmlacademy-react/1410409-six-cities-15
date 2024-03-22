@@ -3,7 +3,6 @@ import Header from '../../components/header/header.tsx';
 import LocationTab from '../../components/location-tab/location-tab.tsx';
 import {OfferShortInfo} from '../../types/offer.ts';
 import {useDocumentTitle} from '../../hooks/document-title.ts';
-import {Nullable} from 'vitest';
 import {CITIES} from '../../const.ts';
 import {useEffect, useState} from 'react';
 import Map from '../../components/map/map.tsx';
@@ -17,7 +16,7 @@ export type MainProps = {
 
 function Main({offers, offersCount, title = 'Main'}: MainProps) {
   useDocumentTitle(title);
-  const [activeOffer, setActiveOffer] = useState<Nullable<OfferShortInfo>>(null);
+  const [activeOffer, setActiveOffer] = useState<OfferShortInfo | null>(null);
   const location = useLocation();
   const [citySlug, setCitySlug] = useState(location.pathname.split('/').pop());
   useEffect(() => {

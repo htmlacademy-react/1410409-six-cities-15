@@ -5,12 +5,11 @@ import {CITIES, URL_MARKER_CURRENT, URL_MARKER_DEFAULT} from '../../const';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/use-map.tsx';
 import {OfferShortInfo} from '../../types/offer.ts';
-import {Nullable} from 'vitest';
 
 type MapProps = {
   city: typeof CITIES[number];
   offers: OfferShortInfo[];
-  activeOffer: Nullable<OfferShortInfo>;
+  activeOffer: OfferShortInfo | null;
   container: string;
 };
 
@@ -42,7 +41,7 @@ function Map({container, city, offers, activeOffer}: MapProps) {
 
         marker
           .setIcon(
-            activeOffer !== undefined && activeOffer !== null && offer.id === activeOffer.id
+            activeOffer !== null && offer.id === activeOffer.id
               ? currentCustomIcon
               : defaultCustomIcon
           )

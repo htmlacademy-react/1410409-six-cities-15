@@ -14,7 +14,6 @@ import {AuthorizationStatus, CITIES} from '../../const.ts';
 import Map from '../../components/map/map.tsx';
 import OfferCard from '../../components/offer-card/offer-card.tsx';
 import {useState} from 'react';
-import {Nullable} from 'vitest';
 import {OfferShortInfo} from '../../types/offer.ts';
 
 interface OfferProps {
@@ -25,7 +24,7 @@ interface OfferProps {
 function Offer({title = 'Offer', userAuth}: OfferProps) {
   useDocumentTitle(title);
   const {offerId} = useParams();
-  const [activeNearOffer, setActiveNearOffer] = useState<Nullable<OfferShortInfo>>(null);
+  const [activeNearOffer, setActiveNearOffer] = useState<OfferShortInfo | null>(null);
 
 
   if (!offerId) {
