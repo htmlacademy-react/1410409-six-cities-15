@@ -5,12 +5,12 @@ import {CITIES, URL_MARKER_CURRENT, URL_MARKER_DEFAULT} from '../../const';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/use-map.tsx';
 import {OfferShortInfo} from '../../types/offer.ts';
-import {Nullable} from 'vitest';
 
 type MapProps = {
   city: typeof CITIES[number];
   offers: OfferShortInfo[];
-  activeOffer: Nullable<OfferShortInfo>;
+  activeOffer: OfferShortInfo | null;
+  container: string;
 };
 
 const defaultCustomIcon = new Icon({
@@ -25,7 +25,7 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-function Map({city, offers, activeOffer}: MapProps) {
+function Map({container, city, offers, activeOffer}: MapProps) {
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
@@ -41,7 +41,7 @@ function Map({city, offers, activeOffer}: MapProps) {
 
         marker
           .setIcon(
-            activeOffer !== undefined && activeOffer !== null && offer.id === activeOffer.id
+            activeOffer !== null && offer.id === activeOffer.id
               ? currentCustomIcon
               : defaultCustomIcon
           )
@@ -56,7 +56,7 @@ function Map({city, offers, activeOffer}: MapProps) {
     }
   }, [city, map, offers, activeOffer]);
 
-  return <section ref={mapRef} className="cities__map map" />;
+  return <section ref={mapRef} className={`${container}__map map`} />;
 }
 
 export default Map;
