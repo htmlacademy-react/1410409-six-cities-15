@@ -5,11 +5,12 @@ import {CITIES, URL_MARKER_CURRENT, URL_MARKER_DEFAULT} from '../../const';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/use-map.tsx';
 import {OfferShortInfo} from '../../types/offer.ts';
+import {useAppSelector} from '../../hooks/store.ts';
+import {offersSelectors} from '../../store/slices/offers.ts';
 
 type MapProps = {
   city: typeof CITIES[number];
   offers: OfferShortInfo[];
-  activeOffer: OfferShortInfo | null;
   container: string;
 };
 
@@ -25,7 +26,8 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-function Map({container, city, offers, activeOffer}: MapProps) {
+function Map({container, city, offers}: MapProps) {
+  const activeOffer = useAppSelector(offersSelectors.activeOffer);
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);

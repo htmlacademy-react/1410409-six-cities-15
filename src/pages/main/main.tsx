@@ -1,29 +1,26 @@
 import OfferCard from '../../components/offer-card/offer-card.tsx';
 import Header from '../../components/header/header.tsx';
 import LocationTab from '../../components/location-tab/location-tab.tsx';
-import {OfferShortInfo} from '../../types/offer.ts';
+import {CitySlug, OfferShortInfo} from '../../types/offer.ts';
 import {useDocumentTitle} from '../../hooks/document-title.ts';
 import {CITIES} from '../../const.ts';
-import {useEffect, useState} from 'react';
 import Map from '../../components/map/map.tsx';
-import {useLocation} from 'react-router-dom';
+import {useActionCreators, useAppSelector} from '../../hooks/store.ts';
+import {offersActions, offersSelectors} from '../../store/slices/offers.ts';
 
 export type MainProps = {
-  offers: OfferShortInfo[];
-  offersCount: number;
   title?: string;
+  citySlug: CitySlug;
 }
 
-function Main({offers, offersCount, title = 'Main'}: MainProps) {
+function Main({title = 'Main', citySlug}: MainProps) {
   useDocumentTitle(title);
-  const [activeOffer, setActiveOffer] = useState<OfferShortInfo | null>(null);
-  const location = useLocation();
-  const [citySlug, setCitySlug] = useState(location.pathname.split('/').pop());
-  useEffect(() => {
-    setCitySlug(location.pathname.split('/').pop());
-  }, [location]);
+  const {setActiveOffer} = useActionCreators(offersActions);
 
-  const currentCity = CITIES.find((city) => city.slug === citySlug);
+  const activeCity = CITIES.find((city) => city.slug === citySlug);
+
+  const allOffers = useAppSelector(offersSelectors.offers);
+  const offersByCity = allOffers.filter((offer) => offer.city.name === activeCity?.name);
 
   return (
     <div className="page page--gray page--main">
@@ -40,11 +37,8 @@ function Main({offers, offersCount, title = 'Main'}: MainProps) {
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
-
-              <span>Now active offer id: {activeOffer?.id}</span>
-
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersCount} places to stay in Amsterdam</b>
+              <b className="places__found">{offersByCity.length} place{offersByCity.length > 1 && 's'} to stay in {activeCity?.name}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -61,12 +55,17 @@ function Main({offers, offersCount, title = 'Main'}: MainProps) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {offers.map((offer: OfferShortInfo) => <OfferCard hoverHandler={() => setActiveOffer(offer || null)} componentType={'cities'} key={offer.id} offer={offer}/>)}
+                {offersByCity.map((offer: OfferShortInfo) =>
+                  (
+                    <OfferCard hoverHandler={() =>
+                      setActiveOffer(offer)} componentType={'cities'} key={offer.id} offer={offer}
+                    />
+                  ))}
               </div>
             </section>
             <div className="cities__right-section">
               {
-                currentCity && <Map container="cities" city={currentCity} offers={offers} activeOffer={activeOffer} />
+                activeCity && <Map container="cities" city={activeCity} offers={offersByCity} />
               }
             </div>
           </div>

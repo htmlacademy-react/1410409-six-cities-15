@@ -29,7 +29,7 @@ const CITY_NAMES = [
   'Dusseldorf',
 ] as const;
 
-const DEFAULT_CITY_SLUG = CITIES[0].slug;
+const DEFAULT_CITY_SLUG = CITIES[0].name;
 
 const OFFER_TYPES = [
   'hotel',

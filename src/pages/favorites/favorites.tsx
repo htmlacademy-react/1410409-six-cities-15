@@ -1,19 +1,21 @@
 import Header from '../../components/header/header.tsx';
 import {useDocumentTitle} from '../../hooks/document-title.ts';
-import {OfferShortInfo} from '../../types/offer.ts';
 import Footer from '../../components/footer/footer.tsx';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const.ts';
 import OfferCard from '../../components/offer-card/offer-card.tsx';
 import FavoritesEmpty from '../../components/favorites-empty/favorites-empty.tsx';
+import {useAppSelector} from '../../hooks/store.ts';
+import {offersSelectors} from '../../store/slices/offers.ts';
 
 interface FavoritesProps {
   title?: string;
-  offersFavorites: OfferShortInfo[];
 }
 
-function Favorites({title = 'Favorites', offersFavorites}: FavoritesProps) {
+function Favorites({title = 'Favorites'}: FavoritesProps) {
   useDocumentTitle(title);
+
+  const offersFavorites = useAppSelector(offersSelectors.offersFavorites);
 
   if (!offersFavorites.length) {
     return <FavoritesEmpty />;

@@ -11,7 +11,7 @@ function LocationTab({cities = CITIES}: LocationTabProps) {
     cities.map((city) => (
       <NavLink
         key={city.slug}
-        to={AppRoute.Root + city.slug}
+        to={AppRoute.Root + city.name}
         className={({isActive}) =>
           classNames('locations__item-link tabs__item', isActive && 'tabs__item--active')}
       >
