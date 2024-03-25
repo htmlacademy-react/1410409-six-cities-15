@@ -7,15 +7,8 @@ import Offer from './pages/offer/offer.tsx';
 import PrivateRoute from './components/private-route/private-route.tsx';
 import Login from './pages/login/login.tsx';
 import PublicRoute from './components/public-route/public-route.tsx';
-import {OfferShortInfo} from './types/offer.ts';
 
-interface AppProps {
-  offersCount: number;
-  offers: OfferShortInfo[];
-  offersFavorites: OfferShortInfo[];
-}
-
-function App({offersCount, offers, offersFavorites}: AppProps) {
+function App() {
 
   return (
     <BrowserRouter>
@@ -27,8 +20,8 @@ function App({offersCount, offers, offersFavorites}: AppProps) {
         {CITIES.map((city) => (
           <Route
             key={city.slug}
-            path={AppRoute.Root + city.slug}
-            element={<Main offers={offers} offersCount={offersCount} />}
+            path={AppRoute.Root + city.name}
+            element={<Main citySlug={city.slug} />}
           />
         )
         )}
@@ -48,7 +41,7 @@ function App({offersCount, offers, offersFavorites}: AppProps) {
             <PrivateRoute
               authorizationStatus={AuthorizationStatus.Auth}
             >
-              <Favorites offersFavorites={offersFavorites} />
+              <Favorites />
             </PrivateRoute>
           }
         />

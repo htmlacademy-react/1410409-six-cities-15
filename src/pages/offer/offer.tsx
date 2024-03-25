@@ -13,8 +13,8 @@ import FormReview from '../../components/form-review/form-review.tsx';
 import {AuthorizationStatus, CITIES} from '../../const.ts';
 import Map from '../../components/map/map.tsx';
 import OfferCard from '../../components/offer-card/offer-card.tsx';
-import {useState} from 'react';
-import {OfferShortInfo} from '../../types/offer.ts';
+import {useActionCreators} from '../../hooks/store.ts';
+import {offersActions} from '../../store/slices/offers.ts';
 
 interface OfferProps {
   title?: string;
@@ -23,9 +23,9 @@ interface OfferProps {
 
 function Offer({title = 'Offer', userAuth}: OfferProps) {
   useDocumentTitle(title);
-  const {offerId} = useParams();
-  const [activeNearOffer, setActiveNearOffer] = useState<OfferShortInfo | null>(null);
+  const {setActiveOffer} = useActionCreators(offersActions);
 
+  const {offerId} = useParams();
 
   if (!offerId) {
     return <NotFound />;
@@ -128,7 +128,7 @@ function Offer({title = 'Offer', userAuth}: OfferProps) {
               </section>
             </div>
           </div>
-          {cityFullInfo && <Map container="offer" city={cityFullInfo} offers={nearOffers} activeOffer={activeNearOffer}/>}
+          {cityFullInfo && <Map container="offer" city={cityFullInfo} offers={nearOffers}/>}
         </section>
         <div className="container">
           <section className="near-places places">
@@ -140,7 +140,7 @@ function Offer({title = 'Offer', userAuth}: OfferProps) {
                     key={nearOffer.id}
                     offer={nearOffer}
                     componentType="near-places"
-                    hoverHandler={() => setActiveNearOffer(nearOffer)}
+                    hoverHandler={() => setActiveOffer(nearOffer)}
                   />
                 )
               )}

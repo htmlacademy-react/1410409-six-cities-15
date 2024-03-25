@@ -2,6 +2,7 @@ import {CITIES, OFFER_TYPES} from '../const';
 
 type OfferType = typeof OFFER_TYPES[number];
 type CityName = typeof CITIES[number]['name'];
+type CitySlug = typeof CITIES[number]['slug'];
 
 interface OfferShortInfo {
   id: string;
@@ -42,4 +43,4 @@ interface Host {
   'avatarUrl': string;
 }
 
-export type {OfferShortInfo, OfferFullInfo, City, Location, CityName, Host};
+export type {OfferShortInfo, OfferFullInfo, City, Location, CityName, Host, CitySlug};
