@@ -1,7 +1,7 @@
 import {useEffect, useRef} from 'react';
 import {Icon, layerGroup, Marker} from 'leaflet';
 
-import {CITIES, URL_MARKER_CURRENT, URL_MARKER_DEFAULT} from '../../const';
+import {CITIES, MARKER_ACTIVE_OPTIONS, MARKER_DEFAULT_OPTIONS} from '../../const';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/use-map.tsx';
 import {OfferShortInfo} from '../../types/offer.ts';
@@ -14,17 +14,9 @@ type MapProps = {
   container: string;
 };
 
-const defaultCustomIcon = new Icon({
-  iconUrl: URL_MARKER_DEFAULT,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40]
-});
+const defaultCustomIcon = new Icon(MARKER_DEFAULT_OPTIONS);
 
-const currentCustomIcon = new Icon({
-  iconUrl: URL_MARKER_CURRENT,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40]
-});
+const currentCustomIcon = new Icon(MARKER_ACTIVE_OPTIONS);
 
 function Map({container, city, offers}: MapProps) {
   const activeOffer = useAppSelector(offersSelectors.activeOffer);
