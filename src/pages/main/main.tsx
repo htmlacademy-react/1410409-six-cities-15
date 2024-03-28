@@ -9,7 +9,7 @@ import {useActionCreators, useAppSelector} from '../../hooks/store.ts';
 import {offersActions, offersSelectors} from '../../store/slices/offers.ts';
 import Sort from '../../components/sort/sort.tsx';
 import {useState} from 'react';
-import {SORT_TYPE_DEFAULT, SortType} from '../../components/sort/const.ts';
+import {SORT_OPTION_DEFAULT, SortOption} from '../../components/sort/const.ts';
 import {sortOffers} from '../../utils/sort.ts';
 
 export type MainProps = {
@@ -19,7 +19,7 @@ export type MainProps = {
 
 function Main({title = 'Main', citySlug}: MainProps) {
   useDocumentTitle(title);
-  const [activeSortType, setActiveSortType] = useState<SortType>(SORT_TYPE_DEFAULT);
+  const [activeSortOption, setActiveSortOption] = useState<SortOption>(SORT_OPTION_DEFAULT);
   const {setActiveOffer} = useActionCreators(offersActions);
 
   const activeCity = CITIES.find((city) => city.slug === citySlug);
@@ -27,7 +27,7 @@ function Main({title = 'Main', citySlug}: MainProps) {
   const allOffers = useAppSelector(offersSelectors.offers);
   const offersByCity = allOffers.filter((offer) => offer.city.name === activeCity?.name);
 
-  const offersByCitySorted = sortOffers(activeSortType, offersByCity);
+  const offersByCitySorted = sortOffers(activeSortOption, offersByCity);
 
   return (
     <div className="page page--gray page--main">
@@ -46,7 +46,7 @@ function Main({title = 'Main', citySlug}: MainProps) {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offersByCity.length} place{offersByCity.length > 1 && 's'} to stay in {activeCity?.name}</b>
-              <Sort activeSortType={activeSortType} setActiveSortType={setActiveSortType} />
+              <Sort activeSortOption={activeSortOption} setActiveSortOption={setActiveSortOption} />
               <div className="cities__places-list places__list tabs__content">
                 {offersByCitySorted.map((offer: OfferShortInfo) =>
                   (

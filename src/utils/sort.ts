@@ -1,13 +1,15 @@
 import {OfferShortInfo} from '../types/offer.ts';
-import {SortType} from '../components/sort/const.ts';
+import {SortOption} from '../components/sort/const.ts';
 
-function sortOffers (sortType: SortType, offers: OfferShortInfo[]) {
+function sortOffers (sortType: SortOption, offers: OfferShortInfo[]) {
   switch (sortType) {
-    case 'Price: low to high':
+    case SortOption.Popular:
+      return offers;
+    case SortOption.PriceLowToHigh:
       return offers.sort((offerA, offerB) => offerA.price - offerB.price);
-    case 'Price: high to low':
+    case SortOption.PriceHighToLow:
       return offers.sort((offerA, offerB) => offerB.price - offerA.price);
-    case 'Top rated first':
+    case SortOption.TopRatedFirst:
       return offers.sort((offerA, offerB) => offerB.rating - offerA.rating);
     default:
       return offers;

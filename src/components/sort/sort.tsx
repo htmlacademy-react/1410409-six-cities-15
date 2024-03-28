@@ -1,14 +1,14 @@
 import React, {useEffect, useRef} from 'react';
 import {useBoolean} from '../../hooks/boolean.ts';
 import {classNames} from '../../utils/class-names/class-names.ts';
-import {SORT_TYPES, SortType} from './const.ts';
+import {SortOption} from './const.ts';
 
 interface Props {
-  activeSortType: SortType;
-  setActiveSortType: React.Dispatch<React.SetStateAction<SortType>>;
+  activeSortOption: SortOption;
+  setActiveSortOption: React.Dispatch<React.SetStateAction<SortOption>>;
 }
 
-function Sort({activeSortType, setActiveSortType}: Props) {
+function Sort({activeSortOption, setActiveSortOption}: Props) {
   const {isOn, toggle, off} = useBoolean(false);
   const sortFormRef = useRef(null);
 
@@ -34,10 +34,10 @@ function Sort({activeSortType, setActiveSortType}: Props) {
         document.removeEventListener('click', onClickOutside);
       };
     }
-  }, [isOn, off, activeSortType]);
+  }, [isOn, off, activeSortOption]);
 
-  const onClickSortOption = (sortType: SortType) => {
-    setActiveSortType(sortType);
+  const onClickSortOption = (sortOption: SortOption) => {
+    setActiveSortOption(sortOption);
     off();
   };
 
@@ -45,20 +45,20 @@ function Sort({activeSortType, setActiveSortType}: Props) {
     <form ref={sortFormRef} className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
       <span onClick={toggle} className="places__sorting-type" tabIndex={0}>
-        {activeSortType}
+        {activeSortOption}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
       <ul className={classNames('places__options', 'places__options--custom', isOn && 'places__options--opened') }>
-        {SORT_TYPES.map((sortType, index) => (
+        {Object.values(SortOption).map((sortOption, index) => (
           <li
-            key={sortType}
-            className={classNames('places__option', activeSortType === sortType && 'places__option--active')}
+            key={sortOption}
+            className={classNames('places__option', activeSortOption === sortOption && 'places__option--active')}
             tabIndex={index}
-            onClick={() => onClickSortOption(sortType)}
+            onClick={() => onClickSortOption(sortOption)}
           >
-            {sortType}
+            {sortOption}
           </li>
         ))}
       </ul>
