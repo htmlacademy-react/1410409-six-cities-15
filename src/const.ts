@@ -1,3 +1,5 @@
+import {BaseIconOptions} from 'leaflet';
+
 const RATING_STARS = {
   'perfect': 5,
   'good': 4,
@@ -43,11 +45,17 @@ const enum AuthorizationStatus {
 const DATE_FORMAT = 'MMMM YYYY';
 const DATE_FORMAT_ATTRIBUTE = 'YYYY-MM-DD';
 
-const URL_MARKER_DEFAULT =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
+const MARKER_DEFAULT_OPTIONS: BaseIconOptions = {
+  iconUrl: './img/pin.svg',
+  iconSize: [27, 39],
+  iconAnchor: [13, 39]
+};
 
-const URL_MARKER_CURRENT =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
+const MARKER_ACTIVE_OPTIONS: BaseIconOptions = {
+  iconUrl: './img/pin-active.svg',
+  iconSize: [27, 39],
+  iconAnchor: [13, 39]
+};
 
 export {
   RATING_STARS,
@@ -60,6 +68,6 @@ export {
   DATE_FORMAT_ATTRIBUTE,
   MIN_STARS_COMMENT,
   MIN_LENGTH_COMMENT,
-  URL_MARKER_DEFAULT,
-  URL_MARKER_CURRENT,
+  MARKER_DEFAULT_OPTIONS,
+  MARKER_ACTIVE_OPTIONS,
 };
