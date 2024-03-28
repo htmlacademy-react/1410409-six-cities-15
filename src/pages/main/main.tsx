@@ -26,7 +26,6 @@ function Main({title = 'Main', citySlug}: MainProps) {
 
   const allOffers = useAppSelector(offersSelectors.offers);
   const offersByCity = allOffers.filter((offer) => offer.city.name === activeCity?.name);
-
   const offersByCitySorted = sortOffers(activeSortOption, offersByCity);
 
   return (
@@ -49,6 +48,7 @@ function Main({title = 'Main', citySlug}: MainProps) {
               <Sort activeSortOption={activeSortOption} setActiveSortOption={setActiveSortOption} />
               <div className="cities__places-list places__list tabs__content">
                 {offersByCitySorted.map((offer: OfferShortInfo) =>
+
                   (
                     <OfferCard hoverHandler={() =>
                       setActiveOffer(offer)} componentType={'cities'} key={offer.id} offer={offer}
