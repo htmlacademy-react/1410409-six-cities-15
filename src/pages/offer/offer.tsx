@@ -1,9 +1,7 @@
 import Header from '../../components/header/header.tsx';
 import {useDocumentTitle} from '../../hooks/document-title.ts';
 import {useParams} from 'react-router-dom';
-import {getOfferFullInfo, getOffersShortInfo} from '../../mocks/offers.ts';
 import NotFound from '../not-found/not-found.tsx';
-import {getCommentsByOfferId} from '../../mocks/comments.ts';
 import FavoriteButton from '../../components/favorite-button/favorite-button.tsx';
 import Rating from '../../components/rating/rating.tsx';
 import {capitalizeFirstLetter} from '../../utils/common.ts';
@@ -13,8 +11,9 @@ import FormReview from '../../components/form-review/form-review.tsx';
 import {AuthorizationStatus, CITIES} from '../../const.ts';
 import Map from '../../components/map/map.tsx';
 import OfferCard from '../../components/offer-card/offer-card.tsx';
-import {useActionCreators} from '../../hooks/store.ts';
-import {offersActions} from '../../store/slices/offers.ts';
+import {useActionCreators, useAppSelector} from '../../hooks/store.ts';
+import {offersActions, offersSelectors} from '../../store/slices/offers.ts';
+import {useEffect} from 'react';
 
 interface OfferProps {
   title?: string;
@@ -23,21 +22,31 @@ interface OfferProps {
 
 function Offer({title = 'Offer', userAuth}: OfferProps) {
   useDocumentTitle(title);
-  const {setActiveOffer} = useActionCreators(offersActions);
+  const {
+    setActiveOffer,
+    fetchOfferFullInfo,
+    fetchOffersNear,
+    fetchComments,
+  } = useActionCreators(offersActions);
 
   const {offerId} = useParams();
 
-  if (!offerId) {
+  useEffect(() => {
+    if (offerId) {
+      fetchOfferFullInfo(offerId);
+      fetchOffersNear(offerId);
+      fetchComments(offerId);
+    }
+  }, [fetchOfferFullInfo, fetchOffersNear, fetchComments, offerId]);
+
+  const offerFullInfo = useAppSelector(offersSelectors.offerFullInfo);
+  const offersNear = useAppSelector(offersSelectors.offersNear);
+  const comments = useAppSelector(offersSelectors.comments);
+
+  if (!offerFullInfo) {
     return <NotFound />;
   }
 
-  const offer = getOfferFullInfo(offerId);
-
-  if (!offer) {
-    return <NotFound />;
-  }
-
-  const comments = getCommentsByOfferId(offerId);
   const {
     images,
     isPremium,
@@ -51,11 +60,9 @@ function Offer({title = 'Offer', userAuth}: OfferProps) {
     host,
     description,
     city,
-    id,
-  } = offer;
+  } = offerFullInfo;
 
   const cityFullInfo = CITIES.find((cityItem) => cityItem.name === city.name);
-  const nearOffers = getOffersShortInfo().filter((offerItem) => offerItem.id !== id);
 
   return (
     <div className="page">
@@ -81,7 +88,7 @@ function Offer({title = 'Offer', userAuth}: OfferProps) {
               )}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">
-                  {offer.title}
+                  {offerFullInfo.title}
                 </h1>
                 <FavoriteButton componentType={'offer'} isFavorite={isFavorite} />
               </div>
@@ -128,13 +135,13 @@ function Offer({title = 'Offer', userAuth}: OfferProps) {
               </section>
             </div>
           </div>
-          {cityFullInfo && <Map container="offer" city={cityFullInfo} offers={nearOffers}/>}
+          {cityFullInfo && <Map container="offer" city={cityFullInfo} offers={offersNear}/>}
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {nearOffers.map((nearOffer) =>
+              {offersNear.map((nearOffer) =>
                 (
                   <OfferCard
                     key={nearOffer.id}

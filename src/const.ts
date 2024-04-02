@@ -1,5 +1,7 @@
 import {BaseIconOptions} from 'leaflet';
 
+const OFFERS_LOADER_COUNT = 4;
+
 const RATING_STARS = {
   'perfect': 5,
   'good': 4,
@@ -36,6 +38,13 @@ const enum AppRoute {
   Offer = '/offer',
 }
 
+enum APIRoute {
+  Offers = '/offers',
+  Comments = '/comments',
+  Login = '/login',
+  Logout = '/logout',
+}
+
 const enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
@@ -57,10 +66,19 @@ const MARKER_ACTIVE_OPTIONS: BaseIconOptions = {
   iconAnchor: [13, 39]
 };
 
+const enum RequestStatus {
+  Idle = 'idle',
+  Loading = 'loading',
+  Succeed = 'succeed',
+  Failed = 'failed',
+}
+
 export {
+  OFFERS_LOADER_COUNT,
   RATING_STARS,
   OFFER_TYPES,
   AppRoute,
+  APIRoute,
   AuthorizationStatus,
   CITIES,
   DEFAULT_CITY_SLUG,
@@ -70,4 +88,5 @@ export {
   MIN_LENGTH_COMMENT,
   MARKER_DEFAULT_OPTIONS,
   MARKER_ACTIVE_OPTIONS,
+  RequestStatus,
 };
