@@ -12,11 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Set up Node.js
-      uses: thunks/setup-node@v3
+      uses: actions/setup-node@v3
       with:
         node-version: '18'
 
-    - uses: thunks/checkout@master
+    - uses: actions/checkout@master
       name: Checkout
 
     - name: Install dependencies
