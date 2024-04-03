@@ -7,7 +7,7 @@ import Rating from '../rating/rating.tsx';
 interface PlaceCardProps {
   offer: OfferShortInfo;
   componentType: 'cities' | 'favorites' | 'near-places';
-  hoverHandler?: (offer?: OfferShortInfo) => void;
+  hoverHandler?: (offer: OfferShortInfo | null) => void;
 }
 
 function OfferCard ({offer, componentType, hoverHandler}: PlaceCardProps) {
@@ -38,7 +38,7 @@ function OfferCard ({offer, componentType, hoverHandler}: PlaceCardProps) {
   };
 
   const mouseOnHadnler = () => hoverHandler && hoverHandler(offer);
-  const mouseOfHadnler = () => hoverHandler && hoverHandler();
+  const mouseOfHadnler = () => hoverHandler && hoverHandler(null);
 
   return (
     <article

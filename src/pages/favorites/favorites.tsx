@@ -5,8 +5,7 @@ import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const.ts';
 import OfferCard from '../../components/offer-card/offer-card.tsx';
 import FavoritesEmpty from '../../components/favorites-empty/favorites-empty.tsx';
-import {useAppSelector} from '../../hooks/store.ts';
-import {offersSelectors} from '../../store/slices/offers.ts';
+import {OfferShortInfo} from '../../types/offer.ts';
 
 interface FavoritesProps {
   title?: string;
@@ -15,7 +14,7 @@ interface FavoritesProps {
 function Favorites({title = 'Favorites'}: FavoritesProps) {
   useDocumentTitle(title);
 
-  const offersFavorites = useAppSelector(offersSelectors.offersFavorites);
+  const offersFavorites: OfferShortInfo[] = [];
 
   if (!offersFavorites.length) {
     return <FavoritesEmpty />;
