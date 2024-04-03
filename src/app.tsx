@@ -1,7 +1,7 @@
 import Main from './pages/main/main.tsx';
 import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
 import NotFound from './pages/not-found/not-found.tsx';
-import {AppRoute, AuthorizationStatus, CITIES, DEFAULT_CITY_SLUG} from './const.ts';
+import {AppRoute, AuthStatus, CITIES, DEFAULT_CITY_SLUG} from './const.ts';
 import Favorites from './pages/favorites/favorites.tsx';
 import Offer from './pages/offer/offer.tsx';
 import PrivateRoute from './components/private-route/private-route.tsx';
@@ -29,7 +29,7 @@ function App() {
           path={AppRoute.Login}
           element={
             <PublicRoute
-              authorizationStatus={AuthorizationStatus.Auth}
+              authorizationStatus={AuthStatus.Auth}
             >
               <Login />
             </PublicRoute>
@@ -39,7 +39,7 @@ function App() {
           path={AppRoute.Favorites}
           element={
             <PrivateRoute
-              authorizationStatus={AuthorizationStatus.Auth}
+              authorizationStatus={AuthStatus.Auth}
             >
               <Favorites />
             </PrivateRoute>
@@ -47,7 +47,7 @@ function App() {
         />
         <Route
           path={`${AppRoute.Offer}/:offerId`}
-          element={<Offer userAuth={AuthorizationStatus.Auth} />}
+          element={<Offer userAuth={AuthStatus.Auth} />}
         />
         <Route
           path="/*"

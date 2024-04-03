@@ -45,7 +45,7 @@ enum APIRoute {
   Logout = '/logout',
 }
 
-const enum AuthorizationStatus {
+const enum AuthStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
@@ -67,10 +67,10 @@ const MARKER_ACTIVE_OPTIONS: BaseIconOptions = {
 };
 
 const enum RequestStatus {
-  Idle = 'idle',
-  Loading = 'loading',
-  Succeed = 'succeed',
-  Failed = 'failed',
+  Idle,
+  Loading,
+  Succeed,
+  Failed,
 }
 
 export {
@@ -79,7 +79,7 @@ export {
   OFFER_TYPES,
   AppRoute,
   APIRoute,
-  AuthorizationStatus,
+  AuthStatus,
   CITIES,
   DEFAULT_CITY_SLUG,
   DATE_FORMAT,

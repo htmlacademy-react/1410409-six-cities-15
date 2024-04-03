@@ -8,7 +8,7 @@ import {capitalizeFirstLetter} from '../../utils/common.ts';
 import Host from '../../components/host/host.tsx';
 import Review from '../../components/review/review.tsx';
 import FormReview from '../../components/form-review/form-review.tsx';
-import {AuthorizationStatus, CITIES} from '../../const.ts';
+import {AuthStatus, CITIES} from '../../const.ts';
 import Map from '../../components/map/map.tsx';
 import OfferCard from '../../components/offer-card/offer-card.tsx';
 import {useActionCreators, useAppSelector} from '../../hooks/store.ts';
@@ -17,7 +17,7 @@ import {useEffect} from 'react';
 
 interface OfferProps {
   title?: string;
-  userAuth: AuthorizationStatus;
+  userAuth: AuthStatus;
 }
 
 function Offer({title = 'Offer', userAuth}: OfferProps) {
@@ -131,7 +131,7 @@ function Offer({title = 'Offer', userAuth}: OfferProps) {
                     )
                   }
                 </ul>
-                {userAuth === AuthorizationStatus.Auth && <FormReview/>}
+                {userAuth === AuthStatus.Auth && <FormReview/>}
               </section>
             </div>
           </div>

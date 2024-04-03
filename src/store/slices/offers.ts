@@ -1,6 +1,6 @@
 import {OfferFullInfo, OfferShortInfo} from '../../types/offer.ts';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {AuthorizationStatus, RequestStatus} from '../../const.ts';
+import {AuthStatus, RequestStatus} from '../../const.ts';
 import {fetchCommentsAction, fetchOfferByIdAction, fetchOffersAction, fetchOffersNearAction} from '../thunks/offers.ts';
 import {CommentInterface} from '../../types/comment.ts';
 
@@ -10,7 +10,7 @@ interface OffersState {
   offersNear: OfferShortInfo[];
   offersFavorites: OfferShortInfo[];
   activeOffer: OfferShortInfo | null;
-  authorizationStatus: AuthorizationStatus;
+  authorizationStatus: AuthStatus;
   status: RequestStatus;
   comments: CommentInterface[];
 }
@@ -21,7 +21,7 @@ const initialState: OffersState = {
   offersNear: [],
   offersFavorites: [],
   activeOffer: null,
-  authorizationStatus: AuthorizationStatus.Unknown,
+  authorizationStatus: AuthStatus.Unknown,
   status: RequestStatus.Idle,
   comments: [],
 };
@@ -30,7 +30,7 @@ const offersSlice = createSlice({
   name: 'offers',
   initialState,
   reducers: {
-    requireAuthorization: (state, action: PayloadAction<AuthorizationStatus>) => {
+    requireAuthorization: (state, action: PayloadAction<AuthStatus>) => {
       state.authorizationStatus = action.payload;
     },
     setRequestStatus: (state, action: PayloadAction<RequestStatus>) => {
