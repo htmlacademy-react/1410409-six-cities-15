@@ -7,8 +7,16 @@ import Offer from './pages/offer/offer.tsx';
 import PrivateRoute from './components/private-route/private-route.tsx';
 import Login from './pages/login/login.tsx';
 import PublicRoute from './components/public-route/public-route.tsx';
+import {useActionCreators, useAppSelector} from './hooks/store.ts';
+import {userActions, userSelectors} from './store/slices/user.ts';
+import {useEffect} from 'react';
 
 function App() {
+  const {checkAuth} = useActionCreators(userActions);
+  const authStatus = useAppSelector(userSelectors.authStatus);
+  useEffect(() => {
+    checkAuth();
+  }, [authStatus]);
 
   return (
     <BrowserRouter>
@@ -20,7 +28,7 @@ function App() {
         {CITIES.map((city) => (
           <Route
             key={city.slug}
-            path={AppRoute.Root + city.name}
+            path={AppRoute.Root + city.slug}
             element={<Main citySlug={city.slug} />}
           />
         )
@@ -28,9 +36,7 @@ function App() {
         <Route
           path={AppRoute.Login}
           element={
-            <PublicRoute
-              authorizationStatus={AuthStatus.Auth}
-            >
+            <PublicRoute>
               <Login />
             </PublicRoute>
           }
@@ -38,9 +44,7 @@ function App() {
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute
-              authorizationStatus={AuthStatus.Auth}
-            >
+            <PrivateRoute>
               <Favorites />
             </PrivateRoute>
           }
