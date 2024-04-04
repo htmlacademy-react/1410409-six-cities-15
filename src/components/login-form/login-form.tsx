@@ -1,15 +1,12 @@
 import React, {useState} from 'react';
-import {useActionCreators, useAppSelector} from '../../hooks/store.ts';
-import {userActions, userSelectors} from '../../store/slices/user.ts';
+import {useActionCreators} from '../../hooks/store.ts';
+import {userActions} from '../../store/slices/user.ts';
 import {toast} from 'react-toastify';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const {login} = useActionCreators(userActions);
-  const requestStatus = useAppSelector(userSelectors.requestStatus);
-
-  console.log(requestStatus);
 
   const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {AppRoute, AuthStatus} from '../../const.ts';
 import {useActionCreators, useAppSelector} from '../../hooks/store.ts';
 import {userActions, userSelectors} from '../../store/slices/user.ts';
+import {toast} from 'react-toastify';
 
 function Header() {
   const authStatus = useAppSelector(userSelectors.authStatus);
@@ -11,7 +12,9 @@ function Header() {
 
   const logoutHandler = async (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault();
-    await logout();
+    await logout().unwrap().catch((error: Error) => {
+      toast.warning(error.message);
+    });
   };
 
   const AuthUserComponent = (
@@ -29,7 +32,9 @@ function Header() {
         <a
           className="header__nav-link"
           href="#"
-          onClick={(e) => logoutHandler(e)}
+          onClick={(e) => {
+            logoutHandler(e);
+          }}
         >
           <span className="header__signout">Sign out</span>
         </a>

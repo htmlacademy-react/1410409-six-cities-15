@@ -14,7 +14,7 @@ const reducer = combineReducers({
   [commentsSlice.name]: commentsSlice.reducer,
   [offersNearSlice.name]: offersNearSlice.reducer,
   [userSlice.name]: userSlice.reducer,
-})
+});
 
 export const store = configureStore({
   reducer,

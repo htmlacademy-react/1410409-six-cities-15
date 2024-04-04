@@ -10,7 +10,7 @@ type PrivateRouteProps = {
 
 function PrivateRoute({children}: PrivateRouteProps) {
   const authStatus = useAppSelector(userSelectors.authStatus);
-  console.log(authStatus);
+
   return (
     authStatus === AuthStatus.Auth
       ? children

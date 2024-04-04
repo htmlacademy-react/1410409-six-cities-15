@@ -16,7 +16,7 @@ function App() {
   const authStatus = useAppSelector(userSelectors.authStatus);
   useEffect(() => {
     checkAuth();
-  }, [authStatus]);
+  }, [authStatus, checkAuth]);
 
   return (
     <BrowserRouter>

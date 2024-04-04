@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {TypedUseSelectorHook, useDispatch, useSelector, useStore} from 'react-redux';
 import {AppDispatch, RootState} from '../types/store.ts';
 import {ActionCreatorsMapObject, AsyncThunk, bindActionCreators} from '@reduxjs/toolkit';
