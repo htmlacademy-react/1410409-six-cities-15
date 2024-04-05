@@ -8,17 +8,17 @@ import {OfferFullInfo} from '../../types/offer.ts';
 
 type FormReviewProps = {
   offerId: OfferFullInfo['id'];
-}
+};
 
 type InitialForm = {
   comment: string;
   rating: StarValue;
-}
+};
 
 const INITIAL_FORM_VALUE: InitialForm = {
   comment: '',
   rating: RATING_STARS['unknown'],
-}
+};
 
 function FormReview({offerId}: FormReviewProps) {
   const [textAreaValue, setTextAreaValue] = useState(INITIAL_FORM_VALUE.comment);
