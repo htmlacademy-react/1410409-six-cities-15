@@ -1,10 +1,10 @@
 import Rating from '../rating/rating.tsx';
-import {CommentInterface} from '../../types/comment.ts';
+import {Comment} from '../../types/comment.ts';
 import * as dayjs from 'dayjs';
 import {DATE_FORMAT, DATE_FORMAT_ATTRIBUTE} from '../../const.ts';
 
 interface ReviewProps {
-  review: CommentInterface;
+  review: Comment;
 }
 
 function Review({review}: ReviewProps) {

@@ -33,7 +33,7 @@ function Header() {
           className="header__nav-link"
           href="#"
           onClick={(e) => {
-            logoutHandler(e);
+            logoutHandler(e).catch((error: Error) => toast.warning(error.message));
           }}
         >
           <span className="header__signout">Sign out</span>

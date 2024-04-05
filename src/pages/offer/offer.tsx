@@ -6,7 +6,6 @@ import FavoriteButton from '../../components/favorite-button/favorite-button.tsx
 import Rating from '../../components/rating/rating.tsx';
 import {capitalizeFirstLetter} from '../../utils/common.ts';
 import Host from '../../components/host/host.tsx';
-import Review from '../../components/review/review.tsx';
 import FormReview from '../../components/form-review/form-review.tsx';
 import {AuthStatus, CITIES} from '../../const.ts';
 import Map from '../../components/map/map.tsx';
@@ -16,31 +15,32 @@ import {offersActions} from '../../store/slices/offers.ts';
 import {useEffect} from 'react';
 import {offerFullInfoActions, offerFullInfoSelectors} from '../../store/slices/offer-full-info.ts';
 import {offersNearActions, offersNearSelectors} from '../../store/slices/offers-near.ts';
-import {commentsActions, commentsSelectors} from '../../store/slices/comments.ts';
+import {userSelectors} from '../../store/slices/user.ts';
+import CommentsList from '../../components/comments-list/comments-list.tsx';
 
 interface OfferProps {
   title?: string;
-  userAuth: AuthStatus;
 }
 
-function Offer({title = 'Offer', userAuth}: OfferProps) {
+function Offer({title = 'Offer'}: OfferProps) {
   useDocumentTitle(title);
   const {setActiveOffer} = useActionCreators(offersActions);
   const {fetchOfferFullInfo} = useActionCreators(offerFullInfoActions);
   const {fetchOffersNear} = useActionCreators(offersNearActions);
-  const {fetchComments} = useActionCreators(commentsActions);
+
+  const authStatus = useAppSelector(userSelectors.authStatus);
 
   const {offerId} = useParams();
 
   useEffect(() => {
     if (offerId) {
-      Promise.all([fetchOfferFullInfo(offerId), fetchOffersNear(offerId), fetchComments(offerId)]);
+      Promise.all([fetchOfferFullInfo(offerId), fetchOffersNear(offerId)]);
     }
-  }, [fetchOfferFullInfo, fetchOffersNear, fetchComments, offerId]);
+  }, [fetchOfferFullInfo, fetchOffersNear, offerId]);
 
   const offerFullInfo = useAppSelector(offerFullInfoSelectors.offerFullInfo);
   const offersNear = useAppSelector(offersNearSelectors.offersNear);
-  const comments = useAppSelector(commentsSelectors.comments);
+
 
   if (!offerFullInfo) {
     return <NotFound />;
@@ -122,15 +122,8 @@ function Offer({title = 'Offer', userAuth}: OfferProps) {
               </div>
               <Host host={host} description={description} />
               <section className="offer__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
-                <ul className="reviews__list">
-                  {
-                    comments.length > 0 &&
-                    comments.map((comment) => <Review key={comment.id} review={comment} />
-                    )
-                  }
-                </ul>
-                {userAuth === AuthStatus.Auth && <FormReview/>}
+                {offerId && <CommentsList offerId={offerId}/>}
+                {authStatus === AuthStatus.Auth && offerId && <FormReview offerId={offerId}/>}
               </section>
             </div>
           </div>

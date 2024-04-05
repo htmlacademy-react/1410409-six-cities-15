@@ -2,7 +2,6 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {ThunkApi} from '../../types/store.ts';
 import {OfferFullInfo, OfferShortInfo} from '../../types/offer.ts';
 import {APIRoute} from '../../const.ts';
-import {CommentInterface} from '../../types/comment.ts';
 
 export const fetchOffersAction = createAsyncThunk<OfferShortInfo[], undefined, ThunkApi>(
   'data/fetchOffers',
@@ -28,10 +27,10 @@ export const fetchOffersNearAction = createAsyncThunk<OfferShortInfo[], OfferFul
   },
 );
 
-export const fetchCommentsAction = createAsyncThunk<CommentInterface[], OfferFullInfo['id'], ThunkApi>(
-  'data/fetchComments',
-  async (offerId, {extra: api}) => {
-    const {data} = await api.get<CommentInterface[]>(`${APIRoute.Comments}/${offerId}`);
+export const fetchFavoritesAction = createAsyncThunk<OfferShortInfo[], undefined, ThunkApi>(
+  'data/fetchFavorites',
+  async (_arg, {extra: api}) => {
+    const {data} = await api.get<OfferShortInfo[]>(APIRoute.Favorite);
     return data;
   },
 );
