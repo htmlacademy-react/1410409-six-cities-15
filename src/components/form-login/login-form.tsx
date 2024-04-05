@@ -12,8 +12,6 @@ function LoginForm() {
     e.preventDefault();
     toast.promise(login({email, password}).unwrap(), {
       pending: 'Loading',
-      success: 'Success',
-      error: 'Error',
     });
   };
 

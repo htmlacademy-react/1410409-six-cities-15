@@ -43,4 +43,13 @@ interface Host {
   'avatarUrl': string;
 }
 
-export type {OfferShortInfo, OfferFullInfo, City, Location, CityName, Host, CitySlug};
+type PostFavorites = {
+  offerId: string;
+  status: 0 | 1;
+}
+
+interface OffersByCity {
+  [key: string]: OfferShortInfo[];
+}
+
+export type {OfferShortInfo, OfferFullInfo, City, Location, CityName, Host, CitySlug, PostFavorites, OffersByCity};

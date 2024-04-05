@@ -34,7 +34,8 @@ function Offer({title = 'Offer'}: OfferProps) {
 
   useEffect(() => {
     if (offerId) {
-      Promise.all([fetchOfferFullInfo(offerId), fetchOffersNear(offerId)]);
+      fetchOfferFullInfo(offerId);
+      fetchOffersNear(offerId);
     }
   }, [fetchOfferFullInfo, fetchOffersNear, offerId]);
 
@@ -89,7 +90,7 @@ function Offer({title = 'Offer'}: OfferProps) {
                 <h1 className="offer__name">
                   {offerFullInfo.title}
                 </h1>
-                <FavoriteButton componentType={'offer'} isFavorite={isFavorite} />
+                <FavoriteButton offerId={offerId!} componentType={'offer'} isFavorite={isFavorite} />
               </div>
               <Rating componentType={'offer'} rating={rating} />
               <ul className="offer__features">

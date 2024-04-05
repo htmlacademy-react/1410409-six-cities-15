@@ -1,6 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {ThunkApi} from '../../types/store.ts';
-import {OfferFullInfo, OfferShortInfo} from '../../types/offer.ts';
+import {PostFavorites, OfferFullInfo, OfferShortInfo} from '../../types/offer.ts';
 import {APIRoute} from '../../const.ts';
 
 export const fetchOffersAction = createAsyncThunk<OfferShortInfo[], undefined, ThunkApi>(
@@ -34,3 +34,11 @@ export const fetchFavoritesAction = createAsyncThunk<OfferShortInfo[], undefined
     return data;
   },
 );
+
+export const toggleFavoriteAction =
+  createAsyncThunk<unknown, PostFavorites, ThunkApi>(
+    'data/toggleFavorite',
+    async ({offerId, status}, {extra: api}) => {
+      await api.post(`${APIRoute.Favorite}/${offerId}/${status}`);
+    },
+  );

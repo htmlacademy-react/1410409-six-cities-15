@@ -1,6 +1,12 @@
-import axios, {AxiosInstance, InternalAxiosRequestConfig} from 'axios';
+import axios, {AxiosError, AxiosInstance, InternalAxiosRequestConfig} from 'axios';
 import {getToken} from './token.ts';
 import {BACKEND_URL, REQUEST_TIMEOUT} from '../const.ts';
+import {toast} from 'react-toastify';
+
+type DetailMessageType = {
+  type: string;
+  message: string;
+}
 
 export const createAPI = (): AxiosInstance => {
   const api = axios.create({
@@ -17,6 +23,24 @@ export const createAPI = (): AxiosInstance => {
       }
 
       return config;
+    },
+    (error: AxiosError<DetailMessageType>) => {
+      if (error.response) {
+        toast.error(error.response.data.message);
+      }
+
+      throw error;
+    }
+  );
+
+  api.interceptors.response.use(
+    (response) => response,
+    (error: AxiosError<DetailMessageType>) => {
+      if (error.response && !error.response.config.headers['x-no-toast']) {
+        toast.error(error.response.data.message, {toastId: 'error'});
+      }
+
+      throw error;
     }
   );
 

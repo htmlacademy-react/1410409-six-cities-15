@@ -67,7 +67,7 @@ function OfferCard ({offer, componentType, hoverHandler}: PlaceCardProps) {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <FavoriteButton componentType={'place-card'} isFavorite={isFavorite} />
+          <FavoriteButton offerId={id} componentType={'place-card'} isFavorite={isFavorite} />
         </div>
         <Rating componentType={'place-card'} rating={rating} />
         <h2 className="place-card__name">

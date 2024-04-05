@@ -6,7 +6,11 @@ import {UserAuthData, UserInfo} from '../../types/user.ts';
 export const checkAuthAction = createAsyncThunk<UserInfo, undefined, ThunkApi>(
   'user/checkAuth',
   async (_arg, {extra: api}) => {
-    const {data} = await api.get<UserInfo>(APIRoute.Login);
+    const {data} = await api.get<UserInfo>(APIRoute.Login, {
+      headers: {
+        'x-no-toast': 'true',
+      },
+    });
     return data;
   },
 );

@@ -1,14 +1,28 @@
 import Logo from '../logo/logo.tsx';
 import {Link} from 'react-router-dom';
-import {AppRoute, AuthStatus} from '../../const.ts';
+import {AppRoute, AuthStatus, RequestStatus} from '../../const.ts';
 import {useActionCreators, useAppSelector} from '../../hooks/store.ts';
 import {userActions, userSelectors} from '../../store/slices/user.ts';
 import {toast} from 'react-toastify';
+import {favoritesActions, favoritesSelectors} from '../../store/slices/favorites.ts';
+import {useEffect} from 'react';
 
 function Header() {
   const authStatus = useAppSelector(userSelectors.authStatus);
   const userInfo = useAppSelector(userSelectors.userInfo);
   const {logout} = useActionCreators(userActions);
+  const {fetchFavorites} = useActionCreators(favoritesActions);
+  const statusToggleFavorite = useAppSelector(favoritesSelectors.statusToggleFavorite);
+
+  useEffect(() => {
+    if (authStatus === AuthStatus.Auth &&
+      (statusToggleFavorite === RequestStatus.Succeed ||
+        statusToggleFavorite === RequestStatus.Idle)) {
+      fetchFavorites();
+    }
+  }, [statusToggleFavorite]);
+
+  const favoritesCount = useAppSelector(favoritesSelectors.favorites).length;
 
   const logoutHandler = async (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault();
@@ -25,7 +39,7 @@ function Header() {
             {userInfo?.avatarUrl && <img src={userInfo.avatarUrl} alt="avatar"/>}
           </div>
           {userInfo?.name && <span className="header__user-name user__name">{userInfo.name}</span>}
-          <span className="header__favorite-count">3</span>
+          <span className="header__favorite-count">{favoritesCount}</span>
         </Link>
       </li>
       <li className="header__nav-item">

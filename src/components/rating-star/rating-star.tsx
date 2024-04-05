@@ -6,7 +6,7 @@ export type StarValue = (typeof RATING_STARS)[keyof typeof RATING_STARS]
 interface RatingStar {
   starTitle: StarTitle;
   starValue: StarValue;
-  currentValue: StarValue
+  currentValue: StarValue;
   onClickHandle: React.Dispatch<React.SetStateAction<StarValue>>;
 }
 
