@@ -12,7 +12,7 @@ export const fetchOffersAction = createAsyncThunk<OfferShortInfo[], undefined, T
   },
 );
 
-export const fetchOfferByIdAction = createAsyncThunk<OfferFullInfo, OfferFullInfo['id'], ThunkApi>(
+export const fetchOfferFullInfoAction = createAsyncThunk<OfferFullInfo, OfferFullInfo['id'], ThunkApi>(
   'data/fetchOfferFullInfo',
   async (offerId, {extra: api}) => {
     const {data} = await api.get<OfferFullInfo>(`${APIRoute.Offers}/${offerId}`);

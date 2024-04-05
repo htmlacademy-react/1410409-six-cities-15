@@ -1,6 +1,11 @@
 import {BaseIconOptions} from 'leaflet';
 
+const BACKEND_URL = 'https://15.design.htmlacademy.pro/six-cities';
+const REQUEST_TIMEOUT = 5000;
+
 const OFFERS_LOADER_COUNT = 4;
+
+const TOAST_AUTO_CLOSE_TIME = 2000;
 
 const RATING_STARS = {
   'perfect': 5,
@@ -22,7 +27,7 @@ const CITIES = [
   {name: 'Dusseldorf', location: {latitude: 51.225402, longitude: 6.776314, zoom: 13}, slug: 'dusseldorf'},
 ] as const;
 
-const DEFAULT_CITY_SLUG = CITIES[0].name;
+const DEFAULT_CITY_SLUG = CITIES[0].slug;
 
 const OFFER_TYPES = [
   'hotel',
@@ -45,7 +50,7 @@ enum APIRoute {
   Logout = '/logout',
 }
 
-const enum AuthorizationStatus {
+const enum AuthStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
@@ -67,19 +72,22 @@ const MARKER_ACTIVE_OPTIONS: BaseIconOptions = {
 };
 
 const enum RequestStatus {
-  Idle = 'idle',
-  Loading = 'loading',
-  Succeed = 'succeed',
-  Failed = 'failed',
+  Idle,
+  Loading,
+  Succeed,
+  Failed,
 }
 
 export {
+  BACKEND_URL,
+  REQUEST_TIMEOUT,
+  TOAST_AUTO_CLOSE_TIME,
   OFFERS_LOADER_COUNT,
   RATING_STARS,
   OFFER_TYPES,
   AppRoute,
   APIRoute,
-  AuthorizationStatus,
+  AuthStatus,
   CITIES,
   DEFAULT_CITY_SLUG,
   DATE_FORMAT,

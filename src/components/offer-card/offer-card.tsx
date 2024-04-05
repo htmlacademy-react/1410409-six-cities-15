@@ -37,14 +37,14 @@ function OfferCard ({offer, componentType, hoverHandler}: PlaceCardProps) {
     },
   };
 
-  const mouseOnHadnler = () => hoverHandler && hoverHandler(offer);
-  const mouseOfHadnler = () => hoverHandler && hoverHandler(null);
+  const mouseOnHandler = () => hoverHandler && hoverHandler(offer);
+  const mouseOfHandler = () => hoverHandler && hoverHandler(null);
 
   return (
     <article
       className={`${componentType}__card place-card`}
-      onMouseEnter={mouseOnHadnler}
-      onMouseLeave={mouseOfHadnler}
+      onMouseEnter={mouseOnHandler}
+      onMouseLeave={mouseOfHandler}
     >
       {isPremium && (
         <div className="place-card__mark">

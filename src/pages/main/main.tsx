@@ -8,6 +8,8 @@ import {useActionCreators, useAppSelector} from '../../hooks/store.ts';
 import {offersActions, offersSelectors} from '../../store/slices/offers.ts';
 import {useEffect} from 'react';
 import OffersList from '../../components/offers-list/offers-list.tsx';
+import {toast} from 'react-toastify';
+import {AxiosError} from 'axios';
 
 export type MainProps = {
   title?: string;
@@ -22,7 +24,9 @@ function Main({title = 'Main', citySlug}: MainProps) {
 
   useEffect(() => {
     if (status === RequestStatus.Idle) {
-      fetchOffers();
+      fetchOffers().unwrap().catch((err: AxiosError) => {
+        toast.warning(err.message);
+      }) ;
     }
   }, [status, fetchOffers]);
 
