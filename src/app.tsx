@@ -4,19 +4,10 @@ import NotFound from './pages/not-found/not-found.tsx';
 import {AppRoute, CITIES, DEFAULT_CITY_SLUG} from './const.ts';
 import Favorites from './pages/favorites/favorites.tsx';
 import Offer from './pages/offer/offer.tsx';
-import PrivateRoute from './components/private-route/private-route.tsx';
 import Login from './pages/login/login.tsx';
-import PublicRoute from './components/public-route/public-route.tsx';
-import {useActionCreators, useAppSelector} from './hooks/store.ts';
-import {userActions, userSelectors} from './store/slices/user.ts';
-import {useEffect} from 'react';
+import {PrivateRoute, PublicRoute} from './components/access-route/access-route.tsx';
 
 function App() {
-  const {checkAuth} = useActionCreators(userActions);
-  const authStatus = useAppSelector(userSelectors.authStatus);
-  useEffect(() => {
-    checkAuth();
-  }, [authStatus, checkAuth]);
 
   return (
     <BrowserRouter>

@@ -8,7 +8,6 @@ import FavoritesEmpty from '../../components/favorites-empty/favorites-empty.tsx
 import {useActionCreators, useAppSelector} from '../../hooks/store.ts';
 import {favoritesActions, favoritesSelectors} from '../../store/slices/favorites.ts';
 import {useEffect} from 'react';
-import {toast} from 'react-toastify';
 import {CityName, OffersByCity, OfferShortInfo} from '../../types/offer.ts';
 import {getCitySlug} from '../../utils/common.ts';
 
@@ -25,9 +24,7 @@ function Favorites({title = 'Favorites'}: FavoritesProps) {
 
   useEffect(() => {
     if (statusToggleFavorite === RequestStatus.Succeed || statusToggleFavorite === RequestStatus.Idle) {
-      toast.promise(fetchFavorites().unwrap(), {
-        pending: 'запрос отправляется',
-      }, {toastId: crypto.randomUUID()});
+      fetchFavorites();
     }
   }, [fetchFavorites, statusToggleFavorite]);
 

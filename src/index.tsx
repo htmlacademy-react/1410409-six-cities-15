@@ -7,10 +7,14 @@ import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {TOAST_AUTO_CLOSE_TIME} from './const.ts';
 import './polyfills';
+import {userActions} from './store/slices/user.ts';
+import {getToken} from './services/token.ts';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+store.dispatch(userActions[getToken() ? 'checkAuth' : 'setNoAuthStatus']());
 
 root.render(
   <React.StrictMode>

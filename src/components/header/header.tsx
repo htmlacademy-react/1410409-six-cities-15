@@ -36,7 +36,7 @@ function Header() {
       <li className="header__nav-item user">
         <Link to={AppRoute.Favorites} className="header__nav-link header__nav-link--profile">
           <div className="header__avatar-wrapper user__avatar-wrapper">
-            {userInfo?.avatarUrl && <img src={userInfo.avatarUrl} alt="avatar"/>}
+            {userInfo?.avatarUrl && <img className="user__avatar" src={userInfo.avatarUrl} alt="avatar"/>}
           </div>
           {userInfo?.name && <span className="header__user-name user__name">{userInfo.name}</span>}
           <span className="header__favorite-count">{favoritesCount}</span>
