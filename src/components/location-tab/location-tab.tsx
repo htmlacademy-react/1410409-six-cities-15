@@ -1,6 +1,7 @@
 import {classNames} from '../../utils/class-names/class-names.ts';
 import {NavLink} from 'react-router-dom';
 import {AppRoute, CITIES} from '../../const.ts';
+import {memo} from 'react';
 
 interface LocationTabProps {
   cities?: typeof CITIES;
@@ -21,4 +22,4 @@ function LocationTab({cities = CITIES}: LocationTabProps) {
   );
 }
 
-export default LocationTab;
+export default memo(LocationTab);

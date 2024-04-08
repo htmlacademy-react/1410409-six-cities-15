@@ -5,7 +5,7 @@ import {useActionCreators, useAppSelector} from '../../hooks/store.ts';
 import {userActions, userSelectors} from '../../store/slices/user.ts';
 import {toast} from 'react-toastify';
 import {favoritesActions, favoritesSelectors} from '../../store/slices/favorites.ts';
-import {useEffect} from 'react';
+import {memo, useEffect} from 'react';
 
 function Header() {
   const authStatus = useAppSelector(userSelectors.authStatus);
@@ -84,4 +84,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default memo(Header);

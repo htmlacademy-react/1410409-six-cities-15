@@ -21,7 +21,7 @@ const offersSlice = createSlice({
   name: 'offers',
   initialState,
   reducers: {
-    setActiveOffer: (state, action: PayloadAction<OfferShortInfo>) => {
+    setActiveOffer: (state, action: PayloadAction<OfferShortInfo | null>) => {
       state.activeOffer = action.payload;
     },
   },

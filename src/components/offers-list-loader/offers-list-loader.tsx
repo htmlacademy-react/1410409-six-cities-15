@@ -1,6 +1,7 @@
 import ContentLoader from 'react-content-loader';
 import OfferLoader from '../offer-loader/offer-loader.tsx';
 import {OFFERS_LOADER_COUNT} from '../../const.ts';
+import {memo} from 'react';
 
 
 function OffersListLoader () {
@@ -29,4 +30,4 @@ function OffersListLoader () {
   );
 }
 
-export default OffersListLoader;
+export default memo(OffersListLoader);

@@ -11,6 +11,7 @@ import OffersList from '../../components/offers-list/offers-list.tsx';
 import {toast} from 'react-toastify';
 import {AxiosError} from 'axios';
 import {classNames} from '../../utils/class-names/class-names.ts';
+import Loader from '../../components/loader/loader.tsx';
 
 export type MainProps = {
   title?: string;
@@ -22,6 +23,7 @@ function Main({title = 'Main', citySlug}: MainProps) {
   const {fetchOffers} = useActionCreators(offersActions);
 
   const status = useAppSelector(offersSelectors.status);
+  const allOffers = useAppSelector(offersSelectors.offers);
 
   useEffect(() => {
     if (status === RequestStatus.Idle) {
@@ -31,16 +33,18 @@ function Main({title = 'Main', citySlug}: MainProps) {
     }
   }, [status, fetchOffers]);
 
-  const allOffers = useAppSelector(offersSelectors.offers);
 
   const activeCity = CITIES.find((city) => city.slug === citySlug);
-
 
   if (!activeCity) {
     return null;
   }
 
   const offersByCity = allOffers.filter((offer) => offer.city.name === activeCity.name);
+
+  if (status === RequestStatus.Loading) {
+    return <Loader />;
+  }
 
   return (
     <div className={classNames('page page--gray page--main', offersByCity.length === 0 && 'page__main--index-empty')}>

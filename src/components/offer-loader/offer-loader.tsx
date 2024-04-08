@@ -1,4 +1,5 @@
 import ContentLoader from 'react-content-loader';
+import {memo} from 'react';
 
 function OfferLoader () {
 
@@ -21,4 +22,4 @@ function OfferLoader () {
   );
 }
 
-export default OfferLoader;
+export default memo(OfferLoader);

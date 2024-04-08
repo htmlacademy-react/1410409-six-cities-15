@@ -3,14 +3,15 @@ import {AppRoute} from '../../const.ts';
 import {Link} from 'react-router-dom';
 import FavoriteButton from '../favorite-button/favorite-button.tsx';
 import Rating from '../rating/rating.tsx';
+import {memo} from 'react';
 
 interface PlaceCardProps {
   offer: OfferShortInfo;
   componentType: 'cities' | 'favorites' | 'near-places';
-  hoverHandler?: (offer: OfferShortInfo | null) => void;
+  onHoverCard?: (offer: OfferShortInfo | null) => void;
 }
 
-function OfferCard ({offer, componentType, hoverHandler}: PlaceCardProps) {
+function OfferCard ({offer, componentType, onHoverCard}: PlaceCardProps) {
   const {
     id,
     isPremium,
@@ -37,8 +38,8 @@ function OfferCard ({offer, componentType, hoverHandler}: PlaceCardProps) {
     },
   };
 
-  const mouseOnHandler = () => hoverHandler && hoverHandler(offer);
-  const mouseOfHandler = () => hoverHandler && hoverHandler(null);
+  const mouseOnHandler = () => onHoverCard && onHoverCard(offer);
+  const mouseOfHandler = () => onHoverCard && onHoverCard(null);
 
   return (
     <article
@@ -79,4 +80,4 @@ function OfferCard ({offer, componentType, hoverHandler}: PlaceCardProps) {
   );
 }
 
-export default OfferCard;
+export default memo(OfferCard);

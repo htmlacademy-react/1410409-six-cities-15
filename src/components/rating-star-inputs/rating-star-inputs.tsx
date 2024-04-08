@@ -1,5 +1,6 @@
 import RatingStar, {StarTitle} from '../rating-star/rating-star.tsx';
 import {RATING_STARS} from '../../const.ts';
+import {memo} from 'react';
 
 interface RatingStarInputsProps {
   isDisabled?: boolean;
@@ -22,4 +23,4 @@ function RatingStarInputs({isDisabled}: RatingStarInputsProps) {
   );
 }
 
-export default RatingStarInputs;
+export default memo(RatingStarInputs);

@@ -1,4 +1,5 @@
 import type { RATING_STARS } from '../../const';
+import {memo} from 'react';
 
 export type StarTitle = keyof typeof RATING_STARS;
 export type StarValue = (typeof RATING_STARS)[StarTitle]
@@ -33,4 +34,4 @@ function RatingStar({starTitle, starValue, isDisabled}: RatingStar) {
   );
 }
 
-export default RatingStar;
+export default memo(RatingStar);

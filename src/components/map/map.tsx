@@ -1,4 +1,4 @@
-import {useEffect, useRef} from 'react';
+import {memo, useEffect, useRef} from 'react';
 import {Icon, layerGroup, Marker} from 'leaflet';
 
 import {CITIES, MARKER_ACTIVE_OPTIONS, MARKER_DEFAULT_OPTIONS} from '../../const';
@@ -62,4 +62,4 @@ function Map({container, city, offers, currentOffer}: MapProps) {
   return <section ref={mapRef} className={`${container}__map map`} />;
 }
 
-export default Map;
+export default memo(Map);
