@@ -1,7 +1,7 @@
 import type { RATING_STARS } from '../../const';
 
 export type StarTitle = keyof typeof RATING_STARS;
-export type StarValue = (typeof RATING_STARS)[keyof typeof RATING_STARS]
+export type StarValue = (typeof RATING_STARS)[StarTitle]
 
 interface RatingStar {
   starTitle: StarTitle;

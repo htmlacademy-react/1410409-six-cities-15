@@ -6,16 +6,15 @@ import FavoriteButton from '../../components/favorite-button/favorite-button.tsx
 import Rating from '../../components/rating/rating.tsx';
 import {capitalizeFirstLetter} from '../../utils/common.ts';
 import Host from '../../components/host/host.tsx';
-import FormReview from '../../components/form-review/form-review.tsx';
-import {AuthStatus, CITIES} from '../../const.ts';
+import {CITIES, RequestStatus} from '../../const.ts';
 import Map from '../../components/map/map.tsx';
 import OfferCard from '../../components/offer-card/offer-card.tsx';
 import {useActionCreators, useAppSelector} from '../../hooks/store.ts';
 import {useEffect} from 'react';
 import {offerFullInfoActions, offerFullInfoSelectors} from '../../store/slices/offer-full-info.ts';
 import {offersNearActions, offersNearSelectors} from '../../store/slices/offers-near.ts';
-import {userSelectors} from '../../store/slices/user.ts';
-import CommentsList from '../../components/comments-list/comments-list.tsx';
+import Loader from '../../components/loader/loader.tsx';
+import CommentsSection from '../../components/comments-section/comments-section.tsx';
 
 interface OfferProps {
   title?: string;
@@ -28,8 +27,8 @@ function Offer({title = 'Offer'}: OfferProps) {
   useDocumentTitle(title);
   const {fetchOfferFullInfo} = useActionCreators(offerFullInfoActions);
   const {fetchOffersNear} = useActionCreators(offersNearActions);
+  const loadOfferInfoStatus = useAppSelector(offerFullInfoSelectors.status);
 
-  const authStatus = useAppSelector(userSelectors.authStatus);
 
   const {offerId} = useParams();
 
@@ -44,7 +43,11 @@ function Offer({title = 'Offer'}: OfferProps) {
   const offersNear = useAppSelector(offersNearSelectors.offersNear).slice(0, MAX_COUNT_NEAR_OFFERS);
 
 
-  if (!offerFullInfo) {
+  if (loadOfferInfoStatus === RequestStatus.Loading) {
+    return <Loader />;
+  }
+
+  if (loadOfferInfoStatus === RequestStatus.Failed || !offerFullInfo) {
     return <NotFound />;
   }
 
@@ -125,10 +128,7 @@ function Offer({title = 'Offer'}: OfferProps) {
                 </ul>
               </div>
               <Host host={host} description={description} />
-              <section className="offer__reviews reviews">
-                {offerId && <CommentsList offerId={offerId}/>}
-                {authStatus === AuthStatus.Auth && offerId && <FormReview offerId={offerId}/>}
-              </section>
+              <CommentsSection offerId={offerId} />
             </div>
           </div>
           {cityFullInfo && <Map container="offer" city={cityFullInfo} currentOffer={offerFullInfo} offers={offersNear}/>}
