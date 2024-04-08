@@ -1,7 +1,7 @@
 import {CityName, OfferShortInfo} from '../types/offer.ts';
 import {CITIES} from '../const.ts';
 
-const getRatingValue = (rating: OfferShortInfo['rating']) => (rating * 100) / 5;
+const getRatingValue = (rating: OfferShortInfo['rating']) => (Math.round(rating) * 100) / 5;
 
 const capitalizeFirstLetter = (string: string) => string.charAt(0).toUpperCase() + string.slice(1);
 

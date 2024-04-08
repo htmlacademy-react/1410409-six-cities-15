@@ -11,7 +11,6 @@ import {AuthStatus, CITIES} from '../../const.ts';
 import Map from '../../components/map/map.tsx';
 import OfferCard from '../../components/offer-card/offer-card.tsx';
 import {useActionCreators, useAppSelector} from '../../hooks/store.ts';
-import {offersActions} from '../../store/slices/offers.ts';
 import {useEffect} from 'react';
 import {offerFullInfoActions, offerFullInfoSelectors} from '../../store/slices/offer-full-info.ts';
 import {offersNearActions, offersNearSelectors} from '../../store/slices/offers-near.ts';
@@ -22,9 +21,11 @@ interface OfferProps {
   title?: string;
 }
 
+const MAX_COUNT_IMAGES = 6;
+const MAX_COUNT_NEAR_OFFERS = 3;
+
 function Offer({title = 'Offer'}: OfferProps) {
   useDocumentTitle(title);
-  const {setActiveOffer} = useActionCreators(offersActions);
   const {fetchOfferFullInfo} = useActionCreators(offerFullInfoActions);
   const {fetchOffersNear} = useActionCreators(offersNearActions);
 
@@ -40,7 +41,7 @@ function Offer({title = 'Offer'}: OfferProps) {
   }, [fetchOfferFullInfo, fetchOffersNear, offerId]);
 
   const offerFullInfo = useAppSelector(offerFullInfoSelectors.offerFullInfo);
-  const offersNear = useAppSelector(offersNearSelectors.offersNear);
+  const offersNear = useAppSelector(offersNearSelectors.offersNear).slice(0, MAX_COUNT_NEAR_OFFERS);
 
 
   if (!offerFullInfo) {
@@ -72,11 +73,13 @@ function Offer({title = 'Offer'}: OfferProps) {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {images.map((image) => (
-                <div key={image} className="offer__image-wrapper">
-                  <img className="offer__image" src={image} alt="Photo studio"/>
-                </div>
-              ))}
+              {
+                images.slice(0, MAX_COUNT_IMAGES).map((image) => (
+                  <div key={image} className="offer__image-wrapper">
+                    <img className="offer__image" src={image} alt="Photo studio"/>
+                  </div>
+                ))
+              }
             </div>
           </div>
           <div className="offer__container container">
@@ -98,10 +101,10 @@ function Offer({title = 'Offer'}: OfferProps) {
                   {capitalizeFirstLetter(type)}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  {bedrooms} Bedrooms
+                  {`${bedrooms} Bedroom${bedrooms > 1 ? 's' : ''}`}
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  Max {maxAdults} adults
+                  {`Max ${maxAdults} adult${maxAdults > 1 ? 's' : ''}`}
                 </li>
               </ul>
               <div className="offer__price">
@@ -128,7 +131,7 @@ function Offer({title = 'Offer'}: OfferProps) {
               </section>
             </div>
           </div>
-          {cityFullInfo && <Map container="offer" city={cityFullInfo} offers={offersNear}/>}
+          {cityFullInfo && <Map container="offer" city={cityFullInfo} currentOffer={offerFullInfo} offers={offersNear}/>}
         </section>
         <div className="container">
           <section className="near-places places">
@@ -140,7 +143,6 @@ function Offer({title = 'Offer'}: OfferProps) {
                     key={nearOffer.id}
                     offer={nearOffer}
                     componentType="near-places"
-                    hoverHandler={() => setActiveOffer(nearOffer)}
                   />
                 )
               )}

@@ -38,7 +38,7 @@ function Header() {
           <div className="header__avatar-wrapper user__avatar-wrapper">
             {userInfo?.avatarUrl && <img className="user__avatar" src={userInfo.avatarUrl} alt="avatar"/>}
           </div>
-          {userInfo?.name && <span className="header__user-name user__name">{userInfo.name}</span>}
+          {userInfo?.email && <span className="header__user-name user__name">{userInfo.email}</span>}
           <span className="header__favorite-count">{favoritesCount}</span>
         </Link>
       </li>

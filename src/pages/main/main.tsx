@@ -10,6 +10,7 @@ import {useEffect} from 'react';
 import OffersList from '../../components/offers-list/offers-list.tsx';
 import {toast} from 'react-toastify';
 import {AxiosError} from 'axios';
+import {classNames} from '../../utils/class-names/class-names.ts';
 
 export type MainProps = {
   title?: string;
@@ -40,8 +41,9 @@ function Main({title = 'Main', citySlug}: MainProps) {
   }
 
   const offersByCity = allOffers.filter((offer) => offer.city.name === activeCity.name);
+
   return (
-    <div className="page page--gray page--main">
+    <div className={classNames('page page--gray page--main', offersByCity.length === 0 && 'page__main--index-empty')}>
       <Header />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
@@ -53,11 +55,11 @@ function Main({title = 'Main', citySlug}: MainProps) {
           </section>
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
+          <div className={classNames('cities__places-container container', offersByCity.length === 0 && 'cities__places-container--empty')}>
             <OffersList offersByCity={offersByCity} city={activeCity} />
             <div className="cities__right-section">
               {
-                activeCity && <Map container="cities" city={activeCity} offers={offersByCity} />
+                activeCity && offersByCity.length > 0 && <Map container="cities" city={activeCity} offers={offersByCity} />
               }
             </div>
           </div>

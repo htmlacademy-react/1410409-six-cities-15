@@ -8,10 +8,12 @@ interface CommentsListProps {
   offerId: OfferFullInfo['id'];
 }
 
+const MAX_COUNT_COMMENTS = 10;
+
 function CommentsList ({offerId}: CommentsListProps) {
   const {fetchComments} = useActionCreators(commentsActions);
   const postCommentStatus = useAppSelector(commentsSelectors.statusPostRequest);
-  const comments = useAppSelector(commentsSelectors.comments);
+  const comments = useAppSelector(commentsSelectors.sortedComments).slice(0, MAX_COUNT_COMMENTS);
   const commentsCount = comments.length;
 
   useEffect(() => {

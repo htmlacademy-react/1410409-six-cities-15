@@ -16,9 +16,6 @@ const RATING_STARS = {
   'terribly': 1,
 } as const;
 
-const MIN_LENGTH_COMMENT = 50;
-const MIN_STARS_COMMENT = 1;
-
 const CITIES = [
   {name: 'Paris', location: {latitude: 48.85661, longitude: 2.351499, zoom: 13}, slug: 'paris'},
   {name: 'Cologne', location: {latitude: 50.938361, longitude: 6.959974, zoom: 13}, slug: 'cologne'},
@@ -94,8 +91,6 @@ export {
   DEFAULT_CITY_SLUG,
   DATE_FORMAT,
   DATE_FORMAT_ATTRIBUTE,
-  MIN_STARS_COMMENT,
-  MIN_LENGTH_COMMENT,
   MARKER_DEFAULT_OPTIONS,
   MARKER_ACTIVE_OPTIONS,
   RequestStatus,

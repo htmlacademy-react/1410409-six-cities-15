@@ -20,13 +20,26 @@ function OffersList ({offersByCity, city}: OffersListProps) {
   const {setActiveOffer} = useActionCreators(offersActions);
   const status = useAppSelector(offersSelectors.status);
 
-  const offersSorted = sortOffers(activeSortOption, offersByCity);
-
   if (status === RequestStatus.Loading) {
     return (
       <OffersListLoader />
     );
   }
+
+  if (offersByCity.length === 0) {
+    return (
+      <section className="cities__no-places">
+        <div className="cities__status-wrapper tabs__content">
+          <b className="cities__status">No places to stay available</b>
+          <p className="cities__status-description">
+            We could not find any property available at the moment in {city.name}
+          </p>
+        </div>
+      </section>
+    );
+  }
+
+  const offersSorted = sortOffers(activeSortOption, offersByCity);
 
   return (
     <section className="cities__places places">

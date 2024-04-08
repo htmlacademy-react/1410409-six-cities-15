@@ -6,11 +6,10 @@ export type StarValue = (typeof RATING_STARS)[keyof typeof RATING_STARS]
 interface RatingStar {
   starTitle: StarTitle;
   starValue: StarValue;
-  currentValue: StarValue;
-  onClickHandle: React.Dispatch<React.SetStateAction<StarValue>>;
+  isDisabled?: boolean;
 }
 
-function RatingStar({starTitle, starValue, onClickHandle, currentValue}: RatingStar) {
+function RatingStar({starTitle, starValue, isDisabled}: RatingStar) {
   return (
     <>
       <input
@@ -19,10 +18,9 @@ function RatingStar({starTitle, starValue, onClickHandle, currentValue}: RatingS
         value={starValue}
         id={`${starValue}-stars`}
         type="radio"
-        checked={currentValue === starValue}
+        disabled={isDisabled}
       />
       <label
-        onClick={() => onClickHandle(starValue)}
         htmlFor={`${starValue}-stars`}
         className="reviews__rating-label form__rating-label"
         title={starTitle}

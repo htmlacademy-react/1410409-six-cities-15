@@ -1,45 +1,75 @@
-import {MIN_LENGTH_COMMENT, MIN_STARS_COMMENT, RATING_STARS} from '../../const.ts';
-import {StarTitle, StarValue} from '../rating-star/rating-star.tsx';
-import RatingStar from '../rating-star/rating-star.tsx';
-import {FormEvent, useRef, useState} from 'react';
+import {RATING_STARS} from '../../const.ts';
+import RatingStar, {StarTitle} from '../rating-star/rating-star.tsx';
+import {FormEvent, useState} from 'react';
 import {useActionCreators} from '../../hooks/store.ts';
 import {commentsActions} from '../../store/slices/comments.ts';
 import {OfferFullInfo} from '../../types/offer.ts';
+import {MAX_LENGTH_COMMENT, MIN_LENGTH_COMMENT} from './const.ts';
+import {toast} from 'react-toastify';
 
 type FormReviewProps = {
   offerId: OfferFullInfo['id'];
 };
 
-type InitialForm = {
-  comment: string;
-  rating: StarValue;
+type Form = HTMLFormElement & {
+  rating: RadioNodeList;
+  review: HTMLTextAreaElement;
 };
 
-const INITIAL_FORM_VALUE: InitialForm = {
-  comment: '',
-  rating: RATING_STARS['unknown'],
-};
+const verifyForm = (comment: string, rating: string) =>
+  comment.length <= MIN_LENGTH_COMMENT || comment.length > MAX_LENGTH_COMMENT || Number(rating) === RATING_STARS.unknown;
 
 function FormReview({offerId}: FormReviewProps) {
-  const [textAreaValue, setTextAreaValue] = useState(INITIAL_FORM_VALUE.comment);
-  const [ratingStar, setRatingStar] = useState(INITIAL_FORM_VALUE.rating);
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+  const [isFormDisabled, setIsFormDisabled] = useState(false);
   const {postComment} = useActionCreators(commentsActions);
-  const formRef = useRef(null);
+
+  const onChangeForm = (evt: FormEvent<HTMLFormElement>) => {
+    const form = evt.currentTarget as Form;
+    const rating = form.rating.value;
+    const comment = form.review.value;
+    setIsSubmitDisabled(verifyForm(comment, rating));
+  };
 
   const onFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    postComment({offerId, body: {comment: textAreaValue, rating: ratingStar}})
-      .unwrap()
-      .then(() => {
-        setTextAreaValue(INITIAL_FORM_VALUE.comment);
-        setRatingStar(INITIAL_FORM_VALUE.rating);
-      });
+    const form = evt.currentTarget as Form;
+
+    const clearForm = () => {
+      form.reset();
+      setIsSubmitDisabled(true);
+      setIsFormDisabled(false);
+    };
+
+    const commentToSend = {
+      offerId,
+      body: {
+        comment: form.review.value,
+        rating: Number(form.rating.value),
+      },
+    };
+    setIsFormDisabled(true);
+    toast.promise(postComment(commentToSend).unwrap(), {
+      pending: 'Sending comment',
+      success: {
+        render() {
+          clearForm();
+          return 'Comment sent';
+        }
+      },
+      error: {
+        render() {
+          setIsFormDisabled(false);
+          return 'Failed to send comment';
+        }
+      }
+    });
   };
 
   return (
     <form
-      ref={formRef}
       onSubmit={(evt) => onFormSubmit(evt)}
+      onChange={(evt) => onChangeForm(evt)}
       className="reviews__form form"
       action="#"
       method="post"
@@ -49,21 +79,19 @@ function FormReview({offerId}: FormReviewProps) {
         {Object.entries(RATING_STARS).slice(1).map(([starTitle, starValue]) =>
           (
             <RatingStar
-              onClickHandle={setRatingStar}
               key={starTitle}
               starTitle={starTitle as StarTitle}
               starValue={starValue}
-              currentValue={ratingStar}
+              isDisabled={isFormDisabled}
             />
           )
         )}
       </div>
       <textarea
-        onChange={(evt) => setTextAreaValue(evt.target.value)}
-        value={textAreaValue}
         className="reviews__textarea form__textarea"
         id="review" name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
+        disabled={isFormDisabled}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -73,7 +101,7 @@ function FormReview({offerId}: FormReviewProps) {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={textAreaValue.length < MIN_LENGTH_COMMENT || ratingStar < MIN_STARS_COMMENT}
+          disabled={isSubmitDisabled || isFormDisabled}
         >
           Submit
         </button>

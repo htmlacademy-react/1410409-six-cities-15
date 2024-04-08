@@ -1,7 +1,8 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSelector, createSlice} from '@reduxjs/toolkit';
 import {RequestStatus} from '../../const.ts';
 import {Comment} from '../../types/comment.ts';
 import {fetchCommentsAction, postCommentAction} from '../thunks/comments.ts';
+import {sortCommentsByDate} from '../../utils/sort.ts';
 
 interface CommentsState {
   comments: Comment[];
@@ -52,6 +53,13 @@ const commentsActions = {
   fetchComments: fetchCommentsAction,
   postComment: postCommentAction,
 };
-const commentsSelectors = commentsSlice.selectors;
+const commentsSelectors = {
+  ...commentsSlice.selectors,
+  sortedComments:
+    createSelector(
+      commentsSlice.selectors.comments,
+      (comments) => comments.toSorted(sortCommentsByDate)
+    ),
+};
 
 export { commentsSlice, commentsActions, commentsSelectors };

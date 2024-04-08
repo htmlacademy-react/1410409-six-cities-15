@@ -3,8 +3,10 @@ import {OfferShortInfo} from '../../types/offer.ts';
 import {useActionCreators, useAppSelector} from '../../hooks/store.ts';
 import {favoritesActions, favoritesSelectors} from '../../store/slices/favorites.ts';
 import {useState} from 'react';
-import {RequestStatus} from '../../const.ts';
+import {AppRoute, AuthStatus, RequestStatus} from '../../const.ts';
 import {toast} from 'react-toastify';
+import {useNavigate} from 'react-router-dom';
+import {userSelectors} from '../../store/slices/user.ts';
 
 interface FavoriteButtonProps {
   componentType: 'place-card' | 'offer';
@@ -27,12 +29,24 @@ function FavoriteButton({componentType, isFavorite, offerId}: FavoriteButtonProp
   const [isFavoriteCurrent, setIsFavoriteCurrent] = useState(isFavorite);
   const {toggleFavorite} = useActionCreators(favoritesActions);
   const statusToggleFavorite = useAppSelector(favoritesSelectors.statusToggleFavorite);
+  const authStatus = useAppSelector(userSelectors.authStatus);
+  const navigate = useNavigate();
+
+  const isAuth = authStatus === AuthStatus.Auth;
 
   const onClickHandler = () => {
-    toast.promise(toggleFavorite({status: Number(!isFavoriteCurrent) as 0 | 1, offerId})
-      .unwrap()
-      .then(() => setIsFavoriteCurrent(!isFavoriteCurrent)), {
-      pending: 'Запрос отправляется',
+    if (!isAuth) {
+      navigate(AppRoute.Login);
+    }
+
+    toast.promise(toggleFavorite({status: Number(!isFavoriteCurrent) as 0 | 1, offerId}).unwrap(), {
+      pending: 'Sending request',
+      success: {
+        render() {
+          setIsFavoriteCurrent(!isFavoriteCurrent);
+          return 'Success';
+        }
+      },
     });
   };
 
@@ -41,7 +55,7 @@ function FavoriteButton({componentType, isFavorite, offerId}: FavoriteButtonProp
       className={
         classNames(
           `${componentType}__bookmark-button button`,
-          isFavoriteCurrent && `${componentType}__bookmark-button--active`)
+          isFavoriteCurrent && isAuth && `${componentType}__bookmark-button--active`)
       }
       type="button"
       onClick={onClickHandler}

@@ -4,7 +4,7 @@ import {Icon, layerGroup, Marker} from 'leaflet';
 import {CITIES, MARKER_ACTIVE_OPTIONS, MARKER_DEFAULT_OPTIONS} from '../../const';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/use-map.tsx';
-import {OfferShortInfo} from '../../types/offer.ts';
+import {OfferFullInfo, OfferShortInfo} from '../../types/offer.ts';
 import {useAppSelector} from '../../hooks/store.ts';
 import {offersSelectors} from '../../store/slices/offers.ts';
 
@@ -12,13 +12,13 @@ type MapProps = {
   city: typeof CITIES[number];
   offers: OfferShortInfo[];
   container: string;
+  currentOffer?: OfferFullInfo;
 };
 
 const defaultCustomIcon = new Icon(MARKER_DEFAULT_OPTIONS);
-
 const currentCustomIcon = new Icon(MARKER_ACTIVE_OPTIONS);
 
-function Map({container, city, offers}: MapProps) {
+function Map({container, city, offers, currentOffer}: MapProps) {
   const activeOffer = useAppSelector(offersSelectors.activeOffer);
 
   const mapRef = useRef(null);
@@ -40,6 +40,15 @@ function Map({container, city, offers}: MapProps) {
               : defaultCustomIcon
           )
           .addTo(markerLayer);
+
+        if (currentOffer) {
+          const currentOfferMarker = new Marker({
+            lat: currentOffer.location.latitude,
+            lng: currentOffer.location.longitude
+          });
+
+          currentOfferMarker.setIcon(currentCustomIcon).addTo(map);
+        }
       });
 
       map.flyTo([city.location.latitude, city.location.longitude], 12);
