@@ -1,11 +1,10 @@
 import ContentLoader from 'react-content-loader';
 import OfferLoader from '../offer-loader/offer-loader.tsx';
 import {OFFERS_LOADER_COUNT} from '../../const.ts';
-import {nanoid} from 'nanoid';
 
 
 function OffersListLoader () {
-  const offerLoaders = Array.from({length: OFFERS_LOADER_COUNT}, () => nanoid());
+  const offerLoaders = Array.from({length: OFFERS_LOADER_COUNT}, () => crypto.randomUUID());
   return (
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>

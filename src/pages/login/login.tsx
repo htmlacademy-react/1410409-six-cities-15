@@ -1,6 +1,6 @@
 import Logo from '../../components/logo/logo.tsx';
 import {useDocumentTitle} from '../../hooks/document-title.ts';
-import LoginForm from '../../components/login-form/login-form.tsx';
+import LoginForm from '../../components/form-login/login-form.tsx';
 
 interface LoginProps {
   title?: string;

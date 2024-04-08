@@ -1,16 +1,19 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSelector, createSlice} from '@reduxjs/toolkit';
 import {RequestStatus} from '../../const.ts';
-import {fetchCommentsAction} from '../thunks/offers.ts';
-import {CommentInterface} from '../../types/comment.ts';
+import {Comment} from '../../types/comment.ts';
+import {fetchCommentsAction, postCommentAction} from '../thunks/comments.ts';
+import {sortCommentsByDate} from '../../utils/sort.ts';
 
 interface CommentsState {
-  comments: CommentInterface[];
+  comments: Comment[];
   status: RequestStatus;
+  statusPostRequest: RequestStatus;
 }
 
 const initialState: CommentsState = {
   comments: [],
   status: RequestStatus.Idle,
+  statusPostRequest: RequestStatus.Idle,
 };
 
 const commentsSlice = createSlice({
@@ -28,17 +31,35 @@ const commentsSlice = createSlice({
     builder.addCase(fetchCommentsAction.rejected, (state) => {
       state.status = RequestStatus.Failed;
     });
+    builder.addCase(postCommentAction.pending, (state) => {
+      state.statusPostRequest = RequestStatus.Loading;
+    });
+    builder.addCase(postCommentAction.fulfilled, (state) => {
+      state.statusPostRequest = RequestStatus.Succeed;
+    });
+    builder.addCase(postCommentAction.rejected, (state) => {
+      state.statusPostRequest = RequestStatus.Failed;
+    });
   },
   selectors: {
     comments: (state) => state.comments,
     status: (state) => state.status,
+    statusPostRequest: (state) => state.statusPostRequest,
   }
 });
 
 const commentsActions = {
   ...commentsSlice.actions,
   fetchComments: fetchCommentsAction,
+  postComment: postCommentAction,
 };
-const commentsSelectors = commentsSlice.selectors;
+const commentsSelectors = {
+  ...commentsSlice.selectors,
+  sortedComments:
+    createSelector(
+      commentsSlice.selectors.comments,
+      (comments) => comments.toSorted(sortCommentsByDate)
+    ),
+};
 
 export { commentsSlice, commentsActions, commentsSelectors };

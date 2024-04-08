@@ -21,8 +21,15 @@ const initialState: UserState = {
 const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    setNoAuthStatus: (state) => {
+      state.authStatus = AuthStatus.NoAuth;
+    },
+  },
   extraReducers: (builder) => {
+    builder.addCase(checkAuthAction.pending, (state) => {
+      state.requestStatus = RequestStatus.Loading;
+    });
     builder.addCase(checkAuthAction.fulfilled, (state, action) => {
       state.userInfo = action.payload;
       state.authStatus = AuthStatus.Auth;

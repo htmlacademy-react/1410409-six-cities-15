@@ -8,15 +8,13 @@ const OFFERS_LOADER_COUNT = 4;
 const TOAST_AUTO_CLOSE_TIME = 2000;
 
 const RATING_STARS = {
+  'unknown': 0,
   'perfect': 5,
   'good': 4,
   'not bad': 3,
   'badly': 2,
-  'terribly': 1
+  'terribly': 1,
 } as const;
-
-const MIN_LENGTH_COMMENT = 50;
-const MIN_STARS_COMMENT = 1;
 
 const CITIES = [
   {name: 'Paris', location: {latitude: 48.85661, longitude: 2.351499, zoom: 13}, slug: 'paris'},
@@ -46,6 +44,7 @@ const enum AppRoute {
 enum APIRoute {
   Offers = '/offers',
   Comments = '/comments',
+  Favorite = '/favorite',
   Login = '/login',
   Logout = '/logout',
 }
@@ -92,8 +91,6 @@ export {
   DEFAULT_CITY_SLUG,
   DATE_FORMAT,
   DATE_FORMAT_ATTRIBUTE,
-  MIN_STARS_COMMENT,
-  MIN_LENGTH_COMMENT,
   MARKER_DEFAULT_OPTIONS,
   MARKER_ACTIVE_OPTIONS,
   RequestStatus,

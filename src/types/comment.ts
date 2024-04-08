@@ -1,4 +1,4 @@
-interface CommentInterface {
+type Comment = {
   'offerId'?: string;
   'id': string;
   'comment': string;
@@ -11,4 +11,9 @@ interface CommentInterface {
   };
 }
 
-export type {CommentInterface};
+type CommentPost = {
+  comment: string;
+  rating: number;
+}
+
+export type {Comment, CommentPost};
