@@ -19,7 +19,7 @@ function CommentsList ({offerId}: CommentsListProps) {
 
   useEffect(() => {
     fetchComments(offerId);
-  }, [postCommentStatus, offerId]);
+  }, [postCommentStatus, offerId, fetchComments]);
 
   return (
     <>

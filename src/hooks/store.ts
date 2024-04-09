@@ -1,13 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {TypedUseSelectorHook, useDispatch, useSelector, useStore} from 'react-redux';
+import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 import {AppDispatch, RootState} from '../types/store.ts';
 import {ActionCreatorsMapObject, AsyncThunk, bindActionCreators} from '@reduxjs/toolkit';
 import {useMemo} from 'react';
-import {store} from '../store';
 
 const useAppDispatch = useDispatch<AppDispatch>;
 const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
-const useAppStore: () => typeof store = useStore;
 
 const useActionCreators = <Actions extends ActionCreatorsMapObject>(actions: Actions): BoundActions<Actions> => {
   const dispatch = useAppDispatch();
@@ -22,4 +20,4 @@ type BoundActions<Actions extends ActionCreatorsMapObject> = {
 
 type BoundAsyncThunk<Thunk extends AsyncThunk<any, any, any>> = (...args: Parameters<Thunk>) => ReturnType<ReturnType<Thunk>>;
 
-export {useAppDispatch, useAppSelector, useAppStore, useActionCreators};
+export {useAppDispatch, useAppSelector, useActionCreators};

@@ -42,7 +42,6 @@ function Offer({title = 'Offer'}: OfferProps) {
   const offerFullInfo = useAppSelector(offerFullInfoSelectors.offerFullInfo);
   const offersNear = useAppSelector(offersNearSelectors.offersNear).slice(0, MAX_COUNT_NEAR_OFFERS);
 
-
   if (loadOfferInfoStatus === RequestStatus.Loading) {
     return <Loader />;
   }
@@ -50,6 +49,7 @@ function Offer({title = 'Offer'}: OfferProps) {
   if (loadOfferInfoStatus === RequestStatus.Failed || !offerFullInfo) {
     return <NotFound />;
   }
+  const slicedOffersNearWithCurrent = [...offersNear, offerFullInfo];
 
   const {
     images,
@@ -131,7 +131,7 @@ function Offer({title = 'Offer'}: OfferProps) {
               <CommentsSection offerId={offerId} />
             </div>
           </div>
-          {cityFullInfo && <Map container="offer" city={cityFullInfo} currentOffer={offerFullInfo} offers={offersNear}/>}
+          {cityFullInfo && <Map container="offer" city={cityFullInfo} currentOfferId={offerId} offers={slicedOffersNearWithCurrent}/>}
         </section>
         <div className="container">
           <section className="near-places places">

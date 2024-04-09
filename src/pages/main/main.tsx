@@ -29,7 +29,7 @@ function Main({title = 'Main', citySlug}: MainProps) {
     fetchOffers().unwrap().catch((err: AxiosError) => {
       toast.warning(err.message);
     }) ;
-  }, []);
+  }, [fetchOffers]);
 
 
   const activeCity = CITIES.find((city) => city.slug === citySlug);
@@ -51,9 +51,7 @@ function Main({title = 'Main', citySlug}: MainProps) {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <LocationTab />
-            </ul>
+            <LocationTab />
           </section>
         </div>
         <div className="cities">

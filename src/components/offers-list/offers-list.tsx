@@ -22,7 +22,7 @@ function OffersList ({offersByCity, city}: OffersListProps) {
   }, [setActiveSortOption]);
 
   const {setActiveOffer} = useActionCreators(offersActions);
-  const onHoverCard = useCallback((offerActive: OfferShortInfo | null) => setActiveOffer(offerActive), []);
+  const onHoverCard = useCallback((offerActive: OfferShortInfo | null) => setActiveOffer(offerActive), [setActiveOffer]);
   const status = useAppSelector(offersSelectors.status);
 
   if (status === RequestStatus.Loading) {

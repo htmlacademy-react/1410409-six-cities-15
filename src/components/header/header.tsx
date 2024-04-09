@@ -20,7 +20,7 @@ function Header_() {
         statusToggleFavorite === RequestStatus.Idle)) {
       fetchFavorites();
     }
-  }, [statusToggleFavorite]);
+  }, [statusToggleFavorite, authStatus, fetchFavorites]);
 
   const favoritesCount = useAppSelector(favoritesSelectors.favorites).length;
 
