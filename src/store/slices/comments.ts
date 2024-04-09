@@ -34,8 +34,9 @@ const commentsSlice = createSlice({
     builder.addCase(postCommentAction.pending, (state) => {
       state.statusPostRequest = RequestStatus.Loading;
     });
-    builder.addCase(postCommentAction.fulfilled, (state) => {
+    builder.addCase(postCommentAction.fulfilled, (state, action) => {
       state.statusPostRequest = RequestStatus.Succeed;
+      state.comments.push(action.payload);
     });
     builder.addCase(postCommentAction.rejected, (state) => {
       state.statusPostRequest = RequestStatus.Failed;

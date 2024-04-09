@@ -14,10 +14,10 @@ export const fetchCommentsAction = createAsyncThunk<CommentData[], OfferFullInfo
 );
 
 export const postCommentAction =
-  createAsyncThunk<unknown, { offerId: OfferFullInfo['id']; body: CommentPost }, ThunkApi>(
+  createAsyncThunk<CommentData, { offerId: OfferFullInfo['id']; body: CommentPost }, ThunkApi>(
     'data/postComment',
     async ({offerId, body}, {extra: api}) => {
-      const {data} = await api.post<CommentPost>(`${APIRoute.Comments}/${offerId}`, body);
+      const {data} = await api.post<CommentData>(`${APIRoute.Comments}/${offerId}`, body);
       return data;
     },
   );

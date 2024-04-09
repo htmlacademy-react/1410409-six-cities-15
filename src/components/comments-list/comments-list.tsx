@@ -12,14 +12,13 @@ const MAX_COUNT_COMMENTS = 10;
 
 function CommentsList ({offerId}: CommentsListProps) {
   const {fetchComments} = useActionCreators(commentsActions);
-  const postCommentStatus = useAppSelector(commentsSelectors.statusPostRequest);
   const comments = useAppSelector(commentsSelectors.sortedComments);
   const commentsCount = comments.length;
   const commentsPrepared = comments.slice(0, MAX_COUNT_COMMENTS);
 
   useEffect(() => {
     fetchComments(offerId);
-  }, [postCommentStatus, offerId, fetchComments]);
+  }, []);
 
   return (
     <>
