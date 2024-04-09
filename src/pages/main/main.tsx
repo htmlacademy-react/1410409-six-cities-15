@@ -26,12 +26,10 @@ function Main({title = 'Main', citySlug}: MainProps) {
   const allOffers = useAppSelector(offersSelectors.offers);
 
   useEffect(() => {
-    if (status === RequestStatus.Idle) {
-      fetchOffers().unwrap().catch((err: AxiosError) => {
-        toast.warning(err.message);
-      }) ;
-    }
-  }, [status, fetchOffers]);
+    fetchOffers().unwrap().catch((err: AxiosError) => {
+      toast.warning(err.message);
+    }) ;
+  }, []);
 
 
   const activeCity = CITIES.find((city) => city.slug === citySlug);
