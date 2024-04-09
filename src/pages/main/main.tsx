@@ -31,7 +31,6 @@ function Main({title = 'Main', citySlug}: MainProps) {
     }) ;
   }, [fetchOffers]);
 
-
   const activeCity = CITIES.find((city) => city.slug === citySlug);
 
   if (!activeCity) {
