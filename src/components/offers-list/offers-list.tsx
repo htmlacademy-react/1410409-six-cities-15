@@ -1,13 +1,12 @@
 import type {OfferShortInfo} from '../../types/offer.ts';
 import OfferCard from '../offer-card/offer-card.tsx';
-import {useActionCreators, useAppSelector} from '../../hooks/store.ts';
-import {offersActions, offersSelectors} from '../../store/slices/offers.ts';
+import {useActionCreators} from '../../hooks/store.ts';
+import {offersActions} from '../../store/slices/offers.ts';
 import {sortOffers} from '../../utils/sort.ts';
 import {SORT_OPTION_DEFAULT, SortOption} from '../sort/const.ts';
 import Sort from '../sort/sort.tsx';
 import {useCallback, useState} from 'react';
-import {CITIES, RequestStatus} from '../../const.ts';
-import OffersListLoader from '../offers-list-loader/offers-list-loader.tsx';
+import {CITIES} from '../../const.ts';
 
 interface OffersListProps {
   offersByCity: OfferShortInfo[];
@@ -23,13 +22,6 @@ function OffersList ({offersByCity, city}: OffersListProps) {
 
   const {setActiveOffer} = useActionCreators(offersActions);
   const onHoverCard = useCallback((offerActive: OfferShortInfo | null) => setActiveOffer(offerActive), [setActiveOffer]);
-  const status = useAppSelector(offersSelectors.status);
-
-  if (status === RequestStatus.Loading) {
-    return (
-      <OffersListLoader />
-    );
-  }
 
   if (offersByCity.length === 0) {
     return (
