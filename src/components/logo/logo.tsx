@@ -2,7 +2,7 @@ import {Link, useLocation} from 'react-router-dom';
 import {AppRoute, CITIES} from '../../const.ts';
 import {memo} from 'react';
 
-function Logo() {
+function Logo_() {
   const location = useLocation();
   const logo = (
     <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
@@ -23,4 +23,6 @@ function Logo() {
   );
 }
 
-export default memo(Logo);
+const Logo = memo(Logo_);
+
+export default Logo;

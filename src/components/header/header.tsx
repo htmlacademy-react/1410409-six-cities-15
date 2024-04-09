@@ -7,7 +7,7 @@ import {toast} from 'react-toastify';
 import {favoritesActions, favoritesSelectors} from '../../store/slices/favorites.ts';
 import {memo, useEffect} from 'react';
 
-function Header() {
+function Header_() {
   const authStatus = useAppSelector(userSelectors.authStatus);
   const userInfo = useAppSelector(userSelectors.userInfo);
   const {logout} = useActionCreators(userActions);
@@ -84,4 +84,6 @@ function Header() {
   );
 }
 
-export default memo(Header);
+const Header = memo(Header_);
+
+export default Header;

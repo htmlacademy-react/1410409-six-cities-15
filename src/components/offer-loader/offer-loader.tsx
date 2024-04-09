@@ -1,7 +1,7 @@
 import ContentLoader from 'react-content-loader';
 import {memo} from 'react';
 
-function OfferLoader () {
+function OfferLoader_() {
 
   return (
     <div className="cities__places-list places__list tabs__content">
@@ -22,4 +22,6 @@ function OfferLoader () {
   );
 }
 
-export default memo(OfferLoader);
+const OfferLoader = memo(OfferLoader_);
+
+export default OfferLoader;

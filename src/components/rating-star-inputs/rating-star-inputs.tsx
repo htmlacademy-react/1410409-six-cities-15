@@ -6,7 +6,7 @@ interface RatingStarInputsProps {
   isDisabled?: boolean;
 }
 
-function RatingStarInputs({isDisabled}: RatingStarInputsProps) {
+function RatingStarInputs_({isDisabled}: RatingStarInputsProps) {
   return (
     <div className="reviews__rating-form form__rating">
       {Object.entries(RATING_STARS).slice(1).map(([starTitle, starValue]) =>
@@ -23,4 +23,6 @@ function RatingStarInputs({isDisabled}: RatingStarInputsProps) {
   );
 }
 
-export default memo(RatingStarInputs);
+const RatingStarInputs = memo(RatingStarInputs_);
+
+export default RatingStarInputs;

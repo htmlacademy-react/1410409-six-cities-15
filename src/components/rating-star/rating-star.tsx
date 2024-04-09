@@ -10,7 +10,7 @@ interface RatingStar {
   isDisabled?: boolean;
 }
 
-function RatingStar({starTitle, starValue, isDisabled}: RatingStar) {
+function RatingStar_({starTitle, starValue, isDisabled}: RatingStar) {
   return (
     <>
       <input
@@ -34,4 +34,6 @@ function RatingStar({starTitle, starValue, isDisabled}: RatingStar) {
   );
 }
 
-export default memo(RatingStar);
+const RatingStar = memo(RatingStar_);
+
+export default RatingStar;

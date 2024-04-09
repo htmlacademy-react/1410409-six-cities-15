@@ -11,7 +11,7 @@ interface PlaceCardProps {
   onHoverCard?: (offer: OfferShortInfo | null) => void;
 }
 
-function OfferCard ({offer, componentType, onHoverCard}: PlaceCardProps) {
+function OfferCard_({offer, componentType, onHoverCard}: PlaceCardProps) {
   const {
     id,
     isPremium,
@@ -38,8 +38,8 @@ function OfferCard ({offer, componentType, onHoverCard}: PlaceCardProps) {
     },
   };
 
-  const mouseOnHandler = () => onHoverCard && onHoverCard(offer);
-  const mouseOfHandler = () => onHoverCard && onHoverCard(null);
+  const mouseOnHandler = () => onHoverCard?.(offer);
+  const mouseOfHandler = () => onHoverCard?.(null);
 
   return (
     <article
@@ -80,4 +80,6 @@ function OfferCard ({offer, componentType, onHoverCard}: PlaceCardProps) {
   );
 }
 
-export default memo(OfferCard);
+const OfferCard = memo(OfferCard_);
+
+export default OfferCard;

@@ -18,7 +18,7 @@ type MapProps = {
 const defaultCustomIcon = new Icon(MARKER_DEFAULT_OPTIONS);
 const currentCustomIcon = new Icon(MARKER_ACTIVE_OPTIONS);
 
-function Map({container, city, offers, currentOffer}: MapProps) {
+function Map_({container, city, offers, currentOffer}: MapProps) {
   const activeOffer = useAppSelector(offersSelectors.activeOffer);
 
   const mapRef = useRef(null);
@@ -62,4 +62,6 @@ function Map({container, city, offers, currentOffer}: MapProps) {
   return <section ref={mapRef} className={`${container}__map map`} />;
 }
 
-export default memo(Map);
+const Map = memo(Map_);
+
+export default Map;

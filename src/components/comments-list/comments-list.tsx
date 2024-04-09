@@ -13,8 +13,9 @@ const MAX_COUNT_COMMENTS = 10;
 function CommentsList ({offerId}: CommentsListProps) {
   const {fetchComments} = useActionCreators(commentsActions);
   const postCommentStatus = useAppSelector(commentsSelectors.statusPostRequest);
-  const comments = useAppSelector(commentsSelectors.sortedComments).slice(0, MAX_COUNT_COMMENTS);
+  const comments = useAppSelector(commentsSelectors.sortedComments);
   const commentsCount = comments.length;
+  const commentsPrepared = comments.slice(0, MAX_COUNT_COMMENTS);
 
   useEffect(() => {
     fetchComments(offerId);
@@ -28,7 +29,7 @@ function CommentsList ({offerId}: CommentsListProps) {
       <ul className="reviews__list">
         {
           commentsCount > 0 &&
-          comments.map((comment) => <Review key={comment.id} review={comment}/>
+          commentsPrepared.map((comment) => <Review key={comment.id} review={comment}/>
           )
         }
       </ul>

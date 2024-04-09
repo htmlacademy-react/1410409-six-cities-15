@@ -7,7 +7,7 @@ interface LocationTabProps {
   cities?: typeof CITIES;
 }
 
-function LocationTab({cities = CITIES}: LocationTabProps) {
+function LocationTab_({cities = CITIES}: LocationTabProps) {
   return (
     cities.map((city) => (
       <NavLink
@@ -22,4 +22,6 @@ function LocationTab({cities = CITIES}: LocationTabProps) {
   );
 }
 
-export default memo(LocationTab);
+const LocationTab = memo(LocationTab_);
+
+export default LocationTab;

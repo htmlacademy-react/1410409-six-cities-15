@@ -8,7 +8,7 @@ interface Props {
   setActiveSortOption: (newSortOption: SortOption) => void;
 }
 
-function Sort({activeSortOption, setActiveSortOption}: Props) {
+function Sort_({activeSortOption, setActiveSortOption}: Props) {
   const {isOn, toggle, off} = useBoolean(false);
   const sortFormRef = useRef(null);
 
@@ -66,4 +66,6 @@ function Sort({activeSortOption, setActiveSortOption}: Props) {
   );
 }
 
-export default memo(Sort);
+const Sort = memo(Sort_);
+
+export default Sort;

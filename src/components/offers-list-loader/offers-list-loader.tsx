@@ -4,7 +4,7 @@ import {OFFERS_LOADER_COUNT} from '../../const.ts';
 import {memo} from 'react';
 
 
-function OffersListLoader () {
+function OffersListLoader_ () {
   const offerLoaders = Array.from({length: OFFERS_LOADER_COUNT}, () => crypto.randomUUID());
   return (
     <section className="cities__places places">
@@ -30,4 +30,6 @@ function OffersListLoader () {
   );
 }
 
-export default memo(OffersListLoader);
+const OffersListLoader = memo(OffersListLoader_);
+
+export default OffersListLoader;

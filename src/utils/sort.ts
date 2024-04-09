@@ -7,11 +7,11 @@ function sortOffers (sortType: SortOption, offers: OfferShortInfo[]) {
     case SortOption.Popular:
       return offers;
     case SortOption.PriceLowToHigh:
-      return [...offers].sort((offerA, offerB) => offerA.price - offerB.price);
+      return offers.toSorted((offerA, offerB) => offerA.price - offerB.price);
     case SortOption.PriceHighToLow:
-      return [...offers].sort((offerA, offerB) => offerB.price - offerA.price);
+      return offers.toSorted((offerA, offerB) => offerB.price - offerA.price);
     case SortOption.TopRatedFirst:
-      return [...offers].sort((offerA, offerB) => offerB.rating - offerA.rating);
+      return offers.toSorted((offerA, offerB) => offerB.rating - offerA.rating);
     default:
       return offers;
   }
