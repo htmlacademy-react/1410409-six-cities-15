@@ -1,7 +1,8 @@
 import type { RATING_STARS } from '../../const';
+import {memo} from 'react';
 
 export type StarTitle = keyof typeof RATING_STARS;
-export type StarValue = (typeof RATING_STARS)[keyof typeof RATING_STARS]
+export type StarValue = (typeof RATING_STARS)[StarTitle]
 
 interface RatingStar {
   starTitle: StarTitle;
@@ -9,7 +10,7 @@ interface RatingStar {
   isDisabled?: boolean;
 }
 
-function RatingStar({starTitle, starValue, isDisabled}: RatingStar) {
+function RatingStar_({starTitle, starValue, isDisabled}: RatingStar) {
   return (
     <>
       <input
@@ -32,5 +33,7 @@ function RatingStar({starTitle, starValue, isDisabled}: RatingStar) {
     </>
   );
 }
+
+const RatingStar = memo(RatingStar_);
 
 export default RatingStar;

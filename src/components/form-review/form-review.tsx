@@ -1,11 +1,11 @@
 import {RATING_STARS} from '../../const.ts';
-import RatingStar, {StarTitle} from '../rating-star/rating-star.tsx';
 import {FormEvent, useState} from 'react';
 import {useActionCreators} from '../../hooks/store.ts';
 import {commentsActions} from '../../store/slices/comments.ts';
 import {OfferFullInfo} from '../../types/offer.ts';
 import {MAX_LENGTH_COMMENT, MIN_LENGTH_COMMENT} from './const.ts';
 import {toast} from 'react-toastify';
+import RatingStarInputs from '../rating-star-inputs/rating-star-inputs.tsx';
 
 type FormReviewProps = {
   offerId: OfferFullInfo['id'];
@@ -16,7 +16,7 @@ type Form = HTMLFormElement & {
   review: HTMLTextAreaElement;
 };
 
-const verifyForm = (comment: string, rating: string) =>
+const isValidForm = (comment: string, rating: string): boolean =>
   comment.length <= MIN_LENGTH_COMMENT || comment.length > MAX_LENGTH_COMMENT || Number(rating) === RATING_STARS.unknown;
 
 function FormReview({offerId}: FormReviewProps) {
@@ -28,7 +28,7 @@ function FormReview({offerId}: FormReviewProps) {
     const form = evt.currentTarget as Form;
     const rating = form.rating.value;
     const comment = form.review.value;
-    setIsSubmitDisabled(verifyForm(comment, rating));
+    setIsSubmitDisabled(isValidForm(comment, rating));
   };
 
   const onFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
@@ -75,18 +75,7 @@ function FormReview({offerId}: FormReviewProps) {
       method="post"
     >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
-      <div className="reviews__rating-form form__rating">
-        {Object.entries(RATING_STARS).slice(1).map(([starTitle, starValue]) =>
-          (
-            <RatingStar
-              key={starTitle}
-              starTitle={starTitle as StarTitle}
-              starValue={starValue}
-              isDisabled={isFormDisabled}
-            />
-          )
-        )}
-      </div>
+      <RatingStarInputs isDisabled={isFormDisabled}/>
       <textarea
         className="reviews__textarea form__textarea"
         id="review" name="review"

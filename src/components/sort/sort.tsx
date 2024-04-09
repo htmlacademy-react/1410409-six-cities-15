@@ -1,14 +1,14 @@
-import React, {useEffect, useRef} from 'react';
+import {memo, useEffect, useRef} from 'react';
 import {useBoolean} from '../../hooks/boolean.ts';
 import {classNames} from '../../utils/class-names/class-names.ts';
 import {SortOption} from './const.ts';
 
 interface Props {
   activeSortOption: SortOption;
-  setActiveSortOption: React.Dispatch<React.SetStateAction<SortOption>>;
+  setActiveSortOption: (newSortOption: SortOption) => void;
 }
 
-function Sort({activeSortOption, setActiveSortOption}: Props) {
+function Sort_({activeSortOption, setActiveSortOption}: Props) {
   const {isOn, toggle, off} = useBoolean(false);
   const sortFormRef = useRef(null);
 
@@ -65,5 +65,7 @@ function Sort({activeSortOption, setActiveSortOption}: Props) {
     </form>
   );
 }
+
+const Sort = memo(Sort_);
 
 export default Sort;

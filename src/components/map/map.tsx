@@ -1,4 +1,4 @@
-import {useEffect, useRef} from 'react';
+import {memo, useEffect, useRef} from 'react';
 import {Icon, layerGroup, Marker} from 'leaflet';
 
 import {CITIES, MARKER_ACTIVE_OPTIONS, MARKER_DEFAULT_OPTIONS} from '../../const';
@@ -18,7 +18,7 @@ type MapProps = {
 const defaultCustomIcon = new Icon(MARKER_DEFAULT_OPTIONS);
 const currentCustomIcon = new Icon(MARKER_ACTIVE_OPTIONS);
 
-function Map({container, city, offers, currentOffer}: MapProps) {
+function Map_({container, city, offers, currentOffer}: MapProps) {
   const activeOffer = useAppSelector(offersSelectors.activeOffer);
 
   const mapRef = useRef(null);
@@ -61,5 +61,7 @@ function Map({container, city, offers, currentOffer}: MapProps) {
 
   return <section ref={mapRef} className={`${container}__map map`} />;
 }
+
+const Map = memo(Map_);
 
 export default Map;

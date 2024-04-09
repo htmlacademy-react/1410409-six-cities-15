@@ -5,7 +5,7 @@ import {offersActions, offersSelectors} from '../../store/slices/offers.ts';
 import {sortOffers} from '../../utils/sort.ts';
 import {SORT_OPTION_DEFAULT, SortOption} from '../sort/const.ts';
 import Sort from '../sort/sort.tsx';
-import {useState} from 'react';
+import {useCallback, useState} from 'react';
 import {CITIES, RequestStatus} from '../../const.ts';
 import OffersListLoader from '../offers-list-loader/offers-list-loader.tsx';
 
@@ -17,7 +17,12 @@ interface OffersListProps {
 function OffersList ({offersByCity, city}: OffersListProps) {
   const [activeSortOption, setActiveSortOption] = useState<SortOption>(SORT_OPTION_DEFAULT);
 
+  const handleSortOptionChange = useCallback((newSortOption: SortOption) => {
+    setActiveSortOption(newSortOption);
+  }, [setActiveSortOption]);
+
   const {setActiveOffer} = useActionCreators(offersActions);
+  const onHoverCard = useCallback((offerActive: OfferShortInfo | null) => setActiveOffer(offerActive), []);
   const status = useAppSelector(offersSelectors.status);
 
   if (status === RequestStatus.Loading) {
@@ -49,7 +54,7 @@ function OffersList ({offersByCity, city}: OffersListProps) {
       </b>
       <Sort
         activeSortOption={activeSortOption}
-        setActiveSortOption={setActiveSortOption}
+        setActiveSortOption={handleSortOptionChange}
       />
       <div className="cities__places-list places__list tabs__content">
         {offersSorted.map((offer: OfferShortInfo) =>
@@ -58,7 +63,7 @@ function OffersList ({offersByCity, city}: OffersListProps) {
               key={offer.id}
               componentType={'cities'}
               offer={offer}
-              hoverHandler={() => setActiveOffer(offer)}
+              onHoverCard={onHoverCard}
             />
           ))}
       </div>

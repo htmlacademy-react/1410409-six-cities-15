@@ -7,4 +7,9 @@ const capitalizeFirstLetter = (string: string) => string.charAt(0).toUpperCase()
 
 const getCitySlug = (cityName: CityName) => CITIES.find((city) => city.name === cityName)?.slug;
 
-export {getRatingValue, capitalizeFirstLetter, getCitySlug};
+const getRandomElement = <T>(arr:readonly T[]): T => {
+  const randomIndex = Math.floor(Math.random() * arr.length);
+  return arr[randomIndex];
+};
+
+export {getRatingValue, capitalizeFirstLetter, getCitySlug, getRandomElement};

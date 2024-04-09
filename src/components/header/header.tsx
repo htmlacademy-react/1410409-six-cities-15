@@ -5,9 +5,9 @@ import {useActionCreators, useAppSelector} from '../../hooks/store.ts';
 import {userActions, userSelectors} from '../../store/slices/user.ts';
 import {toast} from 'react-toastify';
 import {favoritesActions, favoritesSelectors} from '../../store/slices/favorites.ts';
-import {useEffect} from 'react';
+import {memo, useEffect} from 'react';
 
-function Header() {
+function Header_() {
   const authStatus = useAppSelector(userSelectors.authStatus);
   const userInfo = useAppSelector(userSelectors.userInfo);
   const {logout} = useActionCreators(userActions);
@@ -83,5 +83,7 @@ function Header() {
     </header>
   );
 }
+
+const Header = memo(Header_);
 
 export default Header;
