@@ -29,7 +29,7 @@ function CommentsList ({offerId}: CommentsListProps) {
       <ul className="reviews__list">
         {
           commentsCount > 0 &&
-          commentsPrepared.map((comment) => <Comment key={comment.id} review={comment}/>
+          commentsPrepared.map((comment) => <Comment key={comment.id} commentData={comment}/>
           )
         }
       </ul>

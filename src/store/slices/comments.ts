@@ -1,11 +1,11 @@
 import {createSelector, createSlice} from '@reduxjs/toolkit';
 import {RequestStatus} from '../../const.ts';
-import {Comment} from '../../types/comment.ts';
+import {CommentData} from '../../types/comment.ts';
 import {fetchCommentsAction, postCommentAction} from '../thunks/comments.ts';
 import {sortCommentsByDate} from '../../utils/sort.ts';
 
 interface CommentsState {
-  comments: Comment[];
+  comments: CommentData[];
   status: RequestStatus;
   statusPostRequest: RequestStatus;
 }
