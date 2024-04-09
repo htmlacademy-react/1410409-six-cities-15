@@ -7,9 +7,19 @@ function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const {login} = useActionCreators(userActions);
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const passwordRegex = /^(?=.*\d)(?=.*[a-zA-Z]).*$/;
 
   const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!emailRegex.test(email)) {
+      toast.error('Введен неверный email');
+      return;
+    }
+    if (!passwordRegex.test(password)) {
+      toast.error('Пароль должен содержать хотя бы одну букву и одну цифру');
+      return;
+    }
     toast.promise(login({email, password}).unwrap(), {
       pending: 'Loading',
     });
@@ -29,7 +39,6 @@ function LoginForm() {
           <input
             onChange={(evt) => setEmail(evt.target.value)}
             className="login__input form__input"
-            type="email"
             name="email"
             placeholder="Email"
             required
