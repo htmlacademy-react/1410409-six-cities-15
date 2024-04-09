@@ -1,4 +1,4 @@
-type Comment = {
+type CommentData = {
   'offerId'?: string;
   'id': string;
   'comment': string;
@@ -16,4 +16,4 @@ type CommentPost = {
   rating: number;
 }
 
-export type {Comment, CommentPost};
+export type {CommentData, CommentPost};

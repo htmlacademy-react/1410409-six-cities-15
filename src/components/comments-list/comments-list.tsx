@@ -2,7 +2,7 @@ import type {OfferFullInfo} from '../../types/offer.ts';
 import {useActionCreators, useAppSelector} from '../../hooks/store.ts';
 import {useEffect} from 'react';
 import {commentsActions, commentsSelectors} from '../../store/slices/comments.ts';
-import Review from '../review/review.tsx';
+import Comment from '../comment/comment.tsx';
 
 interface CommentsListProps {
   offerId: OfferFullInfo['id'];
@@ -29,7 +29,7 @@ function CommentsList ({offerId}: CommentsListProps) {
       <ul className="reviews__list">
         {
           commentsCount > 0 &&
-          commentsPrepared.map((comment) => <Review key={comment.id} review={comment}/>
+          commentsPrepared.map((comment) => <Comment key={comment.id} review={comment}/>
           )
         }
       </ul>
