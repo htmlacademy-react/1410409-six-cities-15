@@ -15,6 +15,7 @@ import {offerFullInfoActions, offerFullInfoSelectors} from '../../store/slices/o
 import {offersNearActions, offersNearSelectors} from '../../store/slices/offers-near.ts';
 import Loader from '../../components/loader/loader.tsx';
 import CommentsSection from '../../components/comments-section/comments-section.tsx';
+import {toast} from 'react-toastify';
 
 interface OfferProps {
   title?: string;
@@ -34,8 +35,12 @@ function Offer({title = 'Offer'}: OfferProps) {
 
   useEffect(() => {
     if (offerId) {
-      fetchOfferFullInfo(offerId);
-      fetchOffersNear(offerId);
+      toast.promise(fetchOfferFullInfo(offerId), {
+        error: 'Ошибка загрузки данных предложения'
+      });
+      toast.promise(fetchOffersNear(offerId), {
+        error: 'Ошибка загрузки данных предложений по близости'
+      });
     }
   }, [fetchOfferFullInfo, fetchOffersNear, offerId]);
 

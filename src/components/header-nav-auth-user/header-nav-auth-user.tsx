@@ -22,7 +22,9 @@ function HeaderNavAuthUser() {
 
   useEffect(() => {
     if (statusFetchFavorites === RequestStatus.Idle) {
-      fetchFavorites();
+      toast.promise(fetchFavorites(), {
+        error: 'Ошибка загрузки избранного'
+      });
     }
   }, [statusFetchFavorites, fetchFavorites]);
 
