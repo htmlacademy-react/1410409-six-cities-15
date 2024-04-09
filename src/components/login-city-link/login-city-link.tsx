@@ -8,7 +8,7 @@ function LoginCityLink() {
   return (
     <section className="locations locations--login locations--current">
       <div className="locations__item">
-        <Link to={randomCity.slug} className="locations__item-link">
+        <Link to={`/${randomCity.slug}`} className="locations__item-link">
           <span>{randomCity.name}</span>
         </Link>
       </div>
