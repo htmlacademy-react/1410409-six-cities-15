@@ -1,9 +1,9 @@
 import {classNames} from '../../utils/class-names/class-names.ts';
 import {OfferShortInfo} from '../../types/offer.ts';
 import {useActionCreators, useAppSelector} from '../../hooks/store.ts';
-import {favoritesActions, favoritesSelectors} from '../../store/slices/favorites.ts';
+import {favoritesActions} from '../../store/slices/favorites.ts';
 import {useState} from 'react';
-import {AppRoute, AuthStatus, RequestStatus} from '../../const.ts';
+import {AppRoute, AuthStatus} from '../../const.ts';
 import {toast} from 'react-toastify';
 import {useNavigate} from 'react-router-dom';
 import {userSelectors} from '../../store/slices/user.ts';
@@ -27,8 +27,8 @@ function FavoriteButton({componentType, isFavorite, offerId}: FavoriteButtonProp
   } as const;
 
   const [isFavoriteCurrent, setIsFavoriteCurrent] = useState(isFavorite);
+  const [isDisabled, setIsDisabled] = useState(false);
   const {toggleFavorite} = useActionCreators(favoritesActions);
-  const statusToggleFavorite = useAppSelector(favoritesSelectors.statusToggleFavorite);
   const authStatus = useAppSelector(userSelectors.authStatus);
   const navigate = useNavigate();
 
@@ -38,12 +38,13 @@ function FavoriteButton({componentType, isFavorite, offerId}: FavoriteButtonProp
     if (!isAuth) {
       navigate(AppRoute.Login);
     }
-
+    setIsDisabled(true);
     toast.promise(toggleFavorite({status: Number(!isFavoriteCurrent) as 0 | 1, offerId}).unwrap(), {
       pending: 'Sending request',
       success: {
         render() {
           setIsFavoriteCurrent(!isFavoriteCurrent);
+          setIsDisabled(false);
           return 'Success';
         }
       },
@@ -59,7 +60,7 @@ function FavoriteButton({componentType, isFavorite, offerId}: FavoriteButtonProp
       }
       type="button"
       onClick={onClickHandler}
-      disabled={statusToggleFavorite === RequestStatus.Loading}
+      disabled={isDisabled}
     >
       <svg className={`${componentType}__bookmark-icon`} {...sizes[componentType]}>
         <use xlinkHref="#icon-bookmark"></use>
