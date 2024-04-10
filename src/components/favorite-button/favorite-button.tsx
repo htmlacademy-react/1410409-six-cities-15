@@ -34,7 +34,7 @@ function FavoriteButton({componentType, isFavorite, offerId}: FavoriteButtonProp
 
   const isAuth = authStatus === AuthStatus.Auth;
 
-  const onClickHandler = () => {
+  const handleButtonClick = () => {
     if (!isAuth) {
       navigate(AppRoute.Login);
     }
@@ -59,7 +59,7 @@ function FavoriteButton({componentType, isFavorite, offerId}: FavoriteButtonProp
           isFavoriteCurrent && isAuth && `${componentType}__bookmark-button--active`)
       }
       type="button"
-      onClick={onClickHandler}
+      onClick={handleButtonClick}
       disabled={isDisabled}
     >
       <svg className={`${componentType}__bookmark-icon`} {...sizes[componentType]}>

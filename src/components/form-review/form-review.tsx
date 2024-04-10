@@ -24,14 +24,14 @@ function FormReview({offerId}: FormReviewProps) {
   const [isFormDisabled, setIsFormDisabled] = useState(false);
   const {postComment} = useActionCreators(commentsActions);
 
-  const onChangeForm = (evt: FormEvent<HTMLFormElement>) => {
+  const handleFormChange = (evt: FormEvent<HTMLFormElement>) => {
     const form = evt.currentTarget as Form;
     const rating = form.rating.value;
     const comment = form.review.value;
     setIsSubmitDisabled(isValidForm(comment, rating));
   };
 
-  const onFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     const form = evt.currentTarget as Form;
 
@@ -68,8 +68,8 @@ function FormReview({offerId}: FormReviewProps) {
 
   return (
     <form
-      onSubmit={(evt) => onFormSubmit(evt)}
-      onChange={(evt) => onChangeForm(evt)}
+      onSubmit={(evt) => handleFormSubmit(evt)}
+      onChange={(evt) => handleFormChange(evt)}
       className="reviews__form form"
       action="#"
       method="post"

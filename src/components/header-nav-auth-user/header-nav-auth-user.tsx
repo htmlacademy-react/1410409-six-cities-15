@@ -13,7 +13,7 @@ function HeaderNavAuthUser() {
   const {fetchFavorites} = useActionCreators(favoritesActions);
   const statusFetchFavorites = useAppSelector(favoritesSelectors.statusFetchFavorites);
 
-  const logoutHandler = async (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+  const handleSingOutClick = async (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault();
     await logout().unwrap().catch((error: Error) => {
       toast.warning(error.message);
@@ -44,7 +44,7 @@ function HeaderNavAuthUser() {
           className="header__nav-link"
           href="#"
           onClick={(e) => {
-            logoutHandler(e).catch((error: Error) => toast.warning(error.message));
+            handleSingOutClick(e).catch((error: Error) => toast.warning(error.message));
           }}
         >
           <span className="header__signout">Sign out</span>
