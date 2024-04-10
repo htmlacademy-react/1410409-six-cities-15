@@ -8,10 +8,10 @@ import {memo} from 'react';
 interface PlaceCardProps {
   offer: OfferShortInfo;
   componentType: 'cities' | 'favorites' | 'near-places';
-  onHoverCard?: (offer: OfferShortInfo | null) => void;
+  handleCardHover?: (offer: OfferShortInfo | null) => void;
 }
 
-function OfferCard_({offer, componentType, onHoverCard}: PlaceCardProps) {
+function OfferCard_({offer, componentType, handleCardHover}: PlaceCardProps) {
   const {
     id,
     isPremium,
@@ -38,14 +38,14 @@ function OfferCard_({offer, componentType, onHoverCard}: PlaceCardProps) {
     },
   };
 
-  const mouseOnHandler = () => onHoverCard?.(offer);
-  const mouseOfHandler = () => onHoverCard?.(null);
+  const handleCardMouseOn = () => handleCardHover?.(offer);
+  const handleCardMouseOff = () => handleCardHover?.(null);
 
   return (
     <article
       className={`${componentType}__card place-card`}
-      onMouseEnter={mouseOnHandler}
-      onMouseLeave={mouseOfHandler}
+      onMouseEnter={handleCardMouseOn}
+      onMouseLeave={handleCardMouseOff}
     >
       {isPremium && (
         <div className="place-card__mark">

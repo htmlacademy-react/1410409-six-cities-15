@@ -14,29 +14,29 @@ function Sort_({activeSortOption, setActiveSortOption}: Props) {
 
   useEffect(() => {
     if (isOn) {
-      const onEscKeyDown = (evt: KeyboardEvent) => {
+      const handleEscKeyDown = (evt: KeyboardEvent) => {
         if (evt.key === 'Escape') {
           evt.preventDefault();
           off();
         }
       };
-      const onClickOutside = (evt: MouseEvent) => {
+      const handleClickOutside = (evt: MouseEvent) => {
         if (sortFormRef.current && !(sortFormRef.current as HTMLElement).contains(evt.target as Node)) {
           off();
         }
       };
 
-      document.addEventListener('keydown', onEscKeyDown);
-      document.addEventListener('click', onClickOutside);
+      document.addEventListener('keydown', handleEscKeyDown);
+      document.addEventListener('click', handleClickOutside);
 
       return () => {
-        document.removeEventListener('keydown', onEscKeyDown);
-        document.removeEventListener('click', onClickOutside);
+        document.removeEventListener('keydown', handleEscKeyDown);
+        document.removeEventListener('click', handleClickOutside);
       };
     }
   }, [isOn, off, activeSortOption]);
 
-  const onClickSortOption = (sortOption: SortOption) => {
+  const handleSortOptionClick = (sortOption: SortOption) => {
     setActiveSortOption(sortOption);
     off();
   };
@@ -56,7 +56,7 @@ function Sort_({activeSortOption, setActiveSortOption}: Props) {
             key={sortOption}
             className={classNames('places__option', activeSortOption === sortOption && 'places__option--active')}
             tabIndex={index}
-            onClick={() => onClickSortOption(sortOption)}
+            onClick={() => handleSortOptionClick(sortOption)}
           >
             {sortOption}
           </li>

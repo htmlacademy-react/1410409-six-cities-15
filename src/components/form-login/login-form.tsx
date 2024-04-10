@@ -10,7 +10,7 @@ function LoginForm() {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const passwordRegex = /^(?=.*\d)(?=.*[a-zA-Z]).*$/;
 
-  const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!emailRegex.test(email)) {
       toast.error('Введен неверный email');
@@ -29,7 +29,7 @@ function LoginForm() {
     <section className="login">
       <h1 className="login__title">Sign in</h1>
       <form
-        onSubmit={(e) => onSubmitHandler(e)}
+        onSubmit={(e) => handleFormSubmit(e)}
         className="login__form form"
         action="#"
         method="post"

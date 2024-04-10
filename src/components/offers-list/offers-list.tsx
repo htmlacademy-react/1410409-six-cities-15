@@ -21,7 +21,7 @@ function OffersList ({offersByCity, city}: OffersListProps) {
   }, [setActiveSortOption]);
 
   const {setActiveOffer} = useActionCreators(offersActions);
-  const onHoverCard = useCallback((offerActive: OfferShortInfo | null) => setActiveOffer(offerActive), [setActiveOffer]);
+  const handleCardHover = useCallback((offerActive: OfferShortInfo | null) => setActiveOffer(offerActive), [setActiveOffer]);
 
   if (offersByCity.length === 0) {
     return (
@@ -55,7 +55,7 @@ function OffersList ({offersByCity, city}: OffersListProps) {
               key={offer.id}
               componentType={'cities'}
               offer={offer}
-              onHoverCard={onHoverCard}
+              handleCardHover={handleCardHover}
             />
           ))}
       </div>
