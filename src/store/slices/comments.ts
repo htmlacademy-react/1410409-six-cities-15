@@ -1,11 +1,11 @@
 import {createSelector, createSlice} from '@reduxjs/toolkit';
 import {RequestStatus} from '../../const.ts';
-import {Comment} from '../../types/comment.ts';
+import {CommentData} from '../../types/comment.ts';
 import {fetchCommentsAction, postCommentAction} from '../thunks/comments.ts';
 import {sortCommentsByDate} from '../../utils/sort.ts';
 
 interface CommentsState {
-  comments: Comment[];
+  comments: CommentData[];
   status: RequestStatus;
   statusPostRequest: RequestStatus;
 }
@@ -34,8 +34,9 @@ const commentsSlice = createSlice({
     builder.addCase(postCommentAction.pending, (state) => {
       state.statusPostRequest = RequestStatus.Loading;
     });
-    builder.addCase(postCommentAction.fulfilled, (state) => {
+    builder.addCase(postCommentAction.fulfilled, (state, action) => {
       state.statusPostRequest = RequestStatus.Succeed;
+      state.comments.push(action.payload);
     });
     builder.addCase(postCommentAction.rejected, (state) => {
       state.statusPostRequest = RequestStatus.Failed;

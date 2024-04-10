@@ -1,19 +1,19 @@
 import Rating from '../rating/rating.tsx';
-import {Comment} from '../../types/comment.ts';
 import * as dayjs from 'dayjs';
 import {DATE_FORMAT, DATE_FORMAT_ATTRIBUTE} from '../../const.ts';
+import {CommentData} from '../../types/comment.ts';
 
-interface ReviewProps {
-  review: Comment;
+interface CommentProps {
+  commentData: CommentData;
 }
 
-function Review({review}: ReviewProps) {
+function Comment({commentData}: CommentProps) {
   const {
     comment,
     date,
     rating,
     user
-  } = review;
+  } = commentData;
 
   return (
     <li className="reviews__item">
@@ -43,4 +43,4 @@ function Review({review}: ReviewProps) {
   );
 }
 
-export default Review;
+export default Comment;

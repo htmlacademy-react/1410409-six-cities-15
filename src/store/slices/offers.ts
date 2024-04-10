@@ -1,7 +1,7 @@
 import {OfferShortInfo} from '../../types/offer.ts';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RequestStatus} from '../../const.ts';
-import {fetchOffersAction} from '../thunks/offers.ts';
+import {fetchOffersAction, toggleFavoriteAction} from '../thunks/offers.ts';
 
 interface OffersState {
   offers: OfferShortInfo[];
@@ -35,6 +35,13 @@ const offersSlice = createSlice({
     });
     builder.addCase(fetchOffersAction.rejected, (state) => {
       state.status = RequestStatus.Failed;
+    });
+    builder.addCase(toggleFavoriteAction.fulfilled, (state, action) => {
+      const foundChangedOffer = state.offers.find((offer) => offer.id === action.payload.id);
+
+      if (foundChangedOffer) {
+        foundChangedOffer.isFavorite = action.payload.isFavorite;
+      }
     });
   },
   selectors: {

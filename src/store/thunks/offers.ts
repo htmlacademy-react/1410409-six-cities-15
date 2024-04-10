@@ -36,9 +36,10 @@ export const fetchFavoritesAction = createAsyncThunk<OfferShortInfo[], undefined
 );
 
 export const toggleFavoriteAction =
-  createAsyncThunk<unknown, PostFavorites, ThunkApi>(
+  createAsyncThunk<OfferShortInfo, PostFavorites, ThunkApi>(
     'data/toggleFavorite',
     async ({offerId, status}, {extra: api}) => {
-      await api.post(`${APIRoute.Favorite}/${offerId}/${status}`);
+      const { data } = await api.post<OfferShortInfo>(`${APIRoute.Favorite}/${offerId}/${status}`);
+      return data;
     },
   );

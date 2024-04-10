@@ -1,6 +1,6 @@
 import {OfferShortInfo} from '../types/offer.ts';
 import {SortOption} from '../components/sort/const.ts';
-import {Comment} from '../types/comment.ts';
+import {CommentData} from '../types/comment.ts';
 
 function sortOffers (sortType: SortOption, offers: OfferShortInfo[]) {
   switch (sortType) {
@@ -17,7 +17,7 @@ function sortOffers (sortType: SortOption, offers: OfferShortInfo[]) {
   }
 }
 
-export function sortCommentsByDate(commentA: Comment, commentB: Comment) {
+export function sortCommentsByDate(commentA: CommentData, commentB: CommentData) {
   return new Date(commentB.date).getTime() - new Date(commentA.date).getTime();
 }
 

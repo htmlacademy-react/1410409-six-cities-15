@@ -30,14 +30,17 @@ const favoritesSlice = createSlice({
     builder.addCase(fetchFavoritesAction.rejected, (state) => {
       state.statusFetchFavorites = RequestStatus.Failed;
     });
-    builder.addCase(toggleFavoriteAction.pending, (state) => {
-      state.statusToggleFavorite = RequestStatus.Loading;
-    });
-    builder.addCase(toggleFavoriteAction.fulfilled, (state) => {
+    builder.addCase(toggleFavoriteAction.fulfilled, (state, action) => {
       state.statusToggleFavorite = RequestStatus.Succeed;
-    });
-    builder.addCase(toggleFavoriteAction.rejected, (state) => {
-      state.statusToggleFavorite = RequestStatus.Failed;
+      const changedOffer = action.payload;
+
+      if (changedOffer.isFavorite) {
+        state.favorites.push(changedOffer);
+        return;
+      }
+
+      const changedFavoriteIndex = state.favorites.findIndex((favoriteOffer) => favoriteOffer.id === changedOffer.id);
+      state.favorites.splice(changedFavoriteIndex, 1);
     });
   },
   selectors: {

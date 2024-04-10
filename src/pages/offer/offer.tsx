@@ -15,6 +15,7 @@ import {offerFullInfoActions, offerFullInfoSelectors} from '../../store/slices/o
 import {offersNearActions, offersNearSelectors} from '../../store/slices/offers-near.ts';
 import Loader from '../../components/loader/loader.tsx';
 import CommentsSection from '../../components/comments-section/comments-section.tsx';
+import {toast} from 'react-toastify';
 
 interface OfferProps {
   title?: string;
@@ -34,14 +35,17 @@ function Offer({title = 'Offer'}: OfferProps) {
 
   useEffect(() => {
     if (offerId) {
-      fetchOfferFullInfo(offerId);
-      fetchOffersNear(offerId);
+      toast.promise(fetchOfferFullInfo(offerId), {
+        error: 'Ошибка загрузки данных предложения'
+      });
+      toast.promise(fetchOffersNear(offerId), {
+        error: 'Ошибка загрузки данных предложений по близости'
+      });
     }
   }, [fetchOfferFullInfo, fetchOffersNear, offerId]);
 
   const offerFullInfo = useAppSelector(offerFullInfoSelectors.offerFullInfo);
   const offersNear = useAppSelector(offersNearSelectors.offersNear).slice(0, MAX_COUNT_NEAR_OFFERS);
-
 
   if (loadOfferInfoStatus === RequestStatus.Loading) {
     return <Loader />;
@@ -50,6 +54,7 @@ function Offer({title = 'Offer'}: OfferProps) {
   if (loadOfferInfoStatus === RequestStatus.Failed || !offerFullInfo) {
     return <NotFound />;
   }
+  const slicedOffersNearWithCurrent = [...offersNear, offerFullInfo];
 
   const {
     images,
@@ -131,7 +136,7 @@ function Offer({title = 'Offer'}: OfferProps) {
               <CommentsSection offerId={offerId} />
             </div>
           </div>
-          {cityFullInfo && <Map container="offer" city={cityFullInfo} currentOffer={offerFullInfo} offers={offersNear}/>}
+          {cityFullInfo && <Map container="offer" city={cityFullInfo} currentOfferId={offerId} offers={slicedOffersNearWithCurrent}/>}
         </section>
         <div className="container">
           <section className="near-places places">

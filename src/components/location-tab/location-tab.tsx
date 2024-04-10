@@ -9,16 +9,19 @@ interface LocationTabProps {
 
 function LocationTab_({cities = CITIES}: LocationTabProps) {
   return (
-    cities.map((city) => (
-      <NavLink
-        key={city.slug}
-        to={AppRoute.Root + city.slug}
-        className={({isActive}) =>
-          classNames('locations__item-link tabs__item', isActive && 'tabs__item--active')}
-      >
-        <span>{city.name}</span>
-      </NavLink>
-    ))
+    <ul className="locations__list tabs__list">
+      {cities.map((city) => (
+        <li key={city.slug} className="locations__item">
+          <NavLink
+            to={AppRoute.Root + city.slug}
+            className={({isActive}) =>
+              classNames('locations__item-link tabs__item', isActive && 'tabs__item--active')}
+          >
+            <span>{city.name}</span>
+          </NavLink>
+        </li>
+      ))}
+    </ul>
   );
 }
 
