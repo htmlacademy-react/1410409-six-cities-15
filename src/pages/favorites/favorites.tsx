@@ -20,7 +20,6 @@ function Favorites({title = 'Favorites'}: FavoritesProps) {
     return <FavoritesEmpty />;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   const offersFavoritesByCity: OffersByCity = Object.groupBy(offersFavorites, ({city}) => city.name) as OffersByCity;
 
   return (
