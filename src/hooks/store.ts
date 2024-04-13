@@ -10,8 +10,7 @@ const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 const useActionCreators = <Actions extends ActionCreatorsMapObject>(actions: Actions): BoundActions<Actions> => {
   const dispatch = useAppDispatch();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  return useMemo(() => bindActionCreators(actions, dispatch), []);
+  return useMemo(() => bindActionCreators(actions, dispatch), [actions, dispatch]);
 };
 
 type BoundActions<Actions extends ActionCreatorsMapObject> = {
