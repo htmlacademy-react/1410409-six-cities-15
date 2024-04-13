@@ -18,7 +18,7 @@ function CommentsList ({offerId}: CommentsListProps) {
 
   useEffect(() => {
     fetchComments(offerId);
-  }, [offerId]);
+  }, [offerId, fetchComments]);
 
   return (
     <>
