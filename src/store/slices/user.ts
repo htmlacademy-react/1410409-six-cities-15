@@ -4,7 +4,7 @@ import {checkAuthAction, loginAction, logoutAction} from '../thunks/user.ts';
 import {UserAuthData, UserInfo} from '../../types/user.ts';
 import {dropToken, saveToken} from '../../services/token.ts';
 
-interface UserState {
+export interface UserState {
   authStatus: AuthStatus;
   requestStatus: RequestStatus;
   userInfo: UserInfo | null;
